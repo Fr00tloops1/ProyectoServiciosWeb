@@ -1,5 +1,6 @@
-const {DataTypes} = require('sequelize');
+const {DataTypes} = require ('sequelize');
 const sequelize = require ('../config/database');
+const User = require ('./user');
 
 const myAnswer = sequelize.define(
     "myAnswer",
@@ -12,7 +13,11 @@ const myAnswer = sequelize.define(
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: User,
+                key: 'id'
+            }
         },
         content: {
             type: DataTypes.CHAR,

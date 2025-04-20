@@ -1,5 +1,6 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const {DataTypes} = require('sequelize');
+const sequelize = require ('../config/database');
+const User = require ('./user');
 
 const Question = sequelize.define(
     "Question",
@@ -14,8 +15,8 @@ const Question = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: a,
-                key: b
+                model: User,
+                key: 'id'
             }
         },
         subject: {
