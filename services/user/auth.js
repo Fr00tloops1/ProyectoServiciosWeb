@@ -99,4 +99,3 @@ const register = async (req, res) => {
   };
   
   module.exports = { UpdateUser , register , GetUsers, DeleteUser};
-
