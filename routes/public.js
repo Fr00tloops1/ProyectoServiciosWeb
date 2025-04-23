@@ -3,7 +3,7 @@ const router = express.Router();
 require('dotenv').config();
 
 const authRouter = require('./api/user/auth');
-router.use( authRouter);
+router.use( process.env.BASE_URL, authRouter);
 
 
 
