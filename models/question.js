@@ -1,8 +1,8 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Model} = require('sequelize');
 const sequelize = require('../config/database');
 
-const Question = sequelize.define(
-    "Question",
+class Question extends Model {}
+Question.init(
     {
         id: {
             primaryKey: true,
@@ -14,8 +14,8 @@ const Question = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: a,
-                key: b
+                model: 'user',
+                key: 'id'
             }
         },
         subject: {
@@ -30,6 +30,11 @@ const Question = sequelize.define(
             type: DataTypes.CHAR,
             allowNull: false
         }
+    },
+    {
+        modelName: 'questions',
+        tableName: 'questions',
+        sequelize,
     }
 );
 
