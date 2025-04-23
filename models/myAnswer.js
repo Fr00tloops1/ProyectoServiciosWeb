@@ -1,8 +1,8 @@
-const {DataTypes} = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const sequelize = require ('../config/database');
 
-const myAnswer = sequelize.define(
-    "myAnswer",
+class myAnswer extends Model {}
+myAnswer.init(
     {
         id: {
             primaryKey: true,
@@ -22,6 +22,11 @@ const myAnswer = sequelize.define(
             type: DataTypes.TINYINT,
             allowNull: true
         }
+    },
+    {
+        modelName: 'MyAnswer',
+        tableName: 'myanswers',
+        sequelize,
     }
 );
 
