@@ -17,8 +17,13 @@ const User = sequelize.define(
         semester: {
             type: DataTypes.TINYINT,
             allowNull: false
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
-    }
+    },
+    {timestamps: true}
 );
 
 module.exports = User;

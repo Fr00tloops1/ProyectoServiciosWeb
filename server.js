@@ -1,5 +1,6 @@
 const express = require('express');
 const sequelize = require('./config/database')
+const routes = require('./routes/index');
 const app = express();
 require('dotenv').config()
 
@@ -19,4 +20,6 @@ sequelize.sync()
 app.listen(PORT, ()=>{
     console.log(`El servidor MARTIN_REDES_OJOALEGRE esta corriendo en el puerto: ${PORT}`)
 });
+
+app.use(routes.unprotectedRoutes);
 
