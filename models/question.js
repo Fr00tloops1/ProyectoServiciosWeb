@@ -14,7 +14,7 @@ Question.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'user',
+                model: 'User',
                 key: 'id'
             }
         },
@@ -32,7 +32,7 @@ Question.init(
         }
     },
     {
-        modelName: 'questions',
+        modelName: 'Question',
         tableName: 'questions',
         sequelize,
     }

@@ -3,7 +3,6 @@ const sequelize = require('../config/database');
 
 class answerq extends model {}
 answerq.init(
-    "User",
     {
         id: {
             primaryKey: true,
