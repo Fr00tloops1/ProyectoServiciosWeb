@@ -41,4 +41,13 @@ router.delete("/borrar/:id", async(req, res) =>{
       }
 });
 
+router.get("/LogOut/:id", async(req, res) =>{
+  try {
+      const user = await authService.LogOut(req, res);
+      return res.status(status.OK).json(user);
+    } catch (exception) {
+      return res.status(500);
+    }
+});
+
 module.exports = router;

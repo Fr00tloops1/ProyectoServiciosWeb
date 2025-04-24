@@ -3,10 +3,10 @@ const sequelize = require('./config/database')
 const routes = require('./routes/index');
 const app = express();
 require('dotenv').config()
-const userModel = require('../API/models/user')
-const questionModel = require('../API/models/question')
-const myAnswerModel = require('../API/models/myAnswer')
-const commentsModel = require('../API/models/comments')
+const userModel = require('./models/user')
+const questionModel = require('./models/question')
+const myAnswerModel = require('./models/myAnswer')
+const commentsModel = require('./models/comments')
 
 //Variable que contiene el puerto del servidor:
 const PORT = process.env.PORT || 3000;
