@@ -11,11 +11,10 @@ Comments.init(
         },
         answersqID: {
             type: DataTypes.INTEGER,
-           // Omar ya que hayas hecho el modelo de answersQ, aqui agrega la referencia:
-           // references:{
-            //    model: '',
-             //   key: 'id'
-            //}
+            references:{
+                model: 'answerq',
+                key: 'id'
+            }
         },
         myAnswersID: {
             type: DataTypes.INTEGER,

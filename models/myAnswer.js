@@ -24,7 +24,7 @@ myAnswer.init(
         }
     },
     {
-        modelName: 'MyAnswer',
+        modelName: 'myAnswer',
         tableName: 'myanswers',
         sequelize,
     }
