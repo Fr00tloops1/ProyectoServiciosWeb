@@ -30,5 +30,6 @@ User.init(
         sequelize,
     }
 );
+User.sync({alter: true});
 
 module.exports = User;
