@@ -37,5 +37,6 @@ Question.init(
         sequelize,
     }
 );
+Question.sync({alter: true});
 
 module.exports = Question;
