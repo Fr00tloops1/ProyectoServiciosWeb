@@ -12,6 +12,6 @@ const sequelize = new Sequelize(dbName, dbUser, dbPass, {
 
 sequelize.authenticate()
     .then(() => console.log(`Conectando a la Base de Datos: ${dbName}`))
-    .catch(() => console.log(`Error al conectando a la Base de Datos: ${dbName}`));
+    .catch(() => console.log(`Error al conectar a la Base de Datos: ${dbName}`));
 
     module.exports = sequelize;
