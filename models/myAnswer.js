@@ -29,5 +29,6 @@ myAnswer.init(
         sequelize,
     }
 );
+myAnswer.sync({alter: true});
 
 module.exports = myAnswer;

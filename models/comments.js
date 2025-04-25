@@ -30,5 +30,6 @@ Comments.init(
         sequelize
     }
 )
+Comments.sync({alter: true});
 
 module.exports = Comments
