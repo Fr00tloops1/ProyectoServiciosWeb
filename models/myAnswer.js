@@ -1,5 +1,6 @@
-const { DataTypes, Model } = require('sequelize');
+const {DataTypes} = require ('sequelize');
 const sequelize = require ('../config/database');
+const User = require ('./user');
 
 class myAnswer extends Model {}
 myAnswer.init(
@@ -12,7 +13,11 @@ myAnswer.init(
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: User,
+                key: 'id'
+            }
         },
         content: {
             type: DataTypes.CHAR,
