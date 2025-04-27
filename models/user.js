@@ -29,6 +29,7 @@ User.init(
         sequelize,
     }
 );
+User.sync({alter: true});
 
 User.sync()
 
