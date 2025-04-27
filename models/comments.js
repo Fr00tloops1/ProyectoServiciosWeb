@@ -11,6 +11,7 @@ Comments.init(
         },
         answersqID: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             references:{
                 model: 'answerq',
                 key: 'id'
@@ -18,11 +19,16 @@ Comments.init(
         },
         myAnswersID: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             references:{
                 model: 'MyAnswer',
                 key: 'id'
             }
         },
+        comment:{
+            type: DataTypes.STRING(140),
+            allowNull: false,
+        }
     },
     {
         modelName: 'Comments',
