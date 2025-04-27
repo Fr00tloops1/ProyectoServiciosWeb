@@ -15,12 +15,7 @@ const PORT = process.env.PORT || 3000;
 const dbName = process.env.DB_NAME;
 
 //Sincronizacion de los modelos de las tablas:
- (async () => {
-    userModel.sync({alter: true});
-    questionModel.sync({alter: true});
-    myAnswerModel.sync({alter: true});
-    commentsModel.sync({alter: true});
- })
+
     
 //Uso de los middlewares:
 app.use(express.json());
