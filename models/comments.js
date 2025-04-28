@@ -11,6 +11,7 @@ Comments.init(
         },
         answersqID: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             references:{
                 model: 'answerq',
                 key: 'id'
@@ -18,14 +19,19 @@ Comments.init(
         },
         myAnswersID: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             references:{
-                model: 'MyAnswer',
+                model: 'myAnswer',
                 key: 'id'
             }
         },
+        comment:{
+            type: DataTypes.STRING(140),
+            allowNull: false,
+        }
     },
     {
-        modelName: 'Comments',
+        modelName: 'comments',
         tableName: 'comments',
         sequelize
     }

@@ -54,7 +54,7 @@ const register = async (req, res) => {
         await usuario.update({ name, semester, password:hashpass } );
         return res
         .status(status.OK)
-        .json({ message: 'Usuario actualizado', user: usuario });
+        .json({ message: "Usuario actualizado", user: usuario });
     } catch (exception) {
         return exception.message;
       }

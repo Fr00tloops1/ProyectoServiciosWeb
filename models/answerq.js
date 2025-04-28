@@ -1,7 +1,7 @@
 const { Model,DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-class answerq extends model {}
+class answerq extends Model {}
 answerq.init(
     {
         id: {
@@ -30,5 +30,5 @@ answerq.init(
     timestamps: true
     }
 );
-
+answerq.sync({alter: true});
 module.exports = answerq;
