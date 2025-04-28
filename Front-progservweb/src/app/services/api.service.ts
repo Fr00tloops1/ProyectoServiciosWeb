@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private API_URL = 'http://localhost:8001'; // Cambia esto a tu URL real
+  private API_URL = 'http://localhost:8001'; 
 
   constructor(private http: HttpClient) { }
 
@@ -26,6 +26,9 @@ export class ApiService {
 
   eliminarUsuario(id: string): Observable<any> {
     return this.http.delete(`${this.API_URL}/borrar/${id}`);
+  }
+  LogOut(id: string): Observable<any> {
+    return this.http.delete(`${this.API_URL}/LogOut/${id}`);
   }
 
 }
