@@ -1,6 +1,7 @@
 const express = require('express');
 const sequelize = require('./config/database')
 const routes = require('./routes/index');
+const cors = require('cors');
 const app = express();
 require('dotenv').config()
 
@@ -12,6 +13,10 @@ const dbName = process.env.DB_NAME;
     
 //Uso de los middlewares:
 app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
+
 
 sequelize.sync()
     .then(() =>console.log(`La Base de Datos ${dbName} esta lista para usarse`))
