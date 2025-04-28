@@ -1,9 +1,9 @@
-const UserModel = require("../../models/user");
-const { status } = require("http-status");
-const bcryp = require("bcrypt");
+const UserModel = require('../../models/user');
+const { status } = require('http-status');
+const bcryp = require('bcrypt');
 require('dotenv').config();
-const process = require("process");
-const JWT = require("jsonwebtoken");
+const process = require('process');
+const JWT = require('jsonwebtoken');
 
 const register = async (req, res) => {
     try {
@@ -27,7 +27,7 @@ const register = async (req, res) => {
       UserModel.create({ name, semester, password:hashpass });
   
       return res.json({
-        mensaje: "Registered user",
+        mensaje: "Usuario registrado",
         user: { name, semester, password ,token},
       });
     } catch (exception) {
@@ -54,7 +54,7 @@ const register = async (req, res) => {
         await usuario.update({ name, semester, password:hashpass } );
         return res
         .status(status.OK)
-        .json({ message: 'Usuario actualizado', user: usuario });
+        .json({ message: "Usuario actualizado", user: usuario });
     } catch (exception) {
         return exception.message;
       }
