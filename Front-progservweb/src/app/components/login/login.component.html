@@ -1,0 +1,9 @@
+<div class="FormCard">
+<form class="container_input" #myform = "ngForm" (ngSubmit)="SendData(myform)">
+    <h3>Login</h3>
+    <input type="text" placeholder="Name" [(ngModel)]="NameField" #myinput = "ngModel" name = "name" required> <!-- #myInput permite acceder al estdo del input el name es obligatorio para poder identificarlos -->
+    <input type="number" placeholder="Semester" [(ngModel)]="SemesterField" #myinput = "ngModel" name = "semester" required>
+    <input type="password" placeholder="Password" [(ngModel)]="PasswordField" #myinput = "ngModel" name = "password" required>
+    <button type="submit">Login</button>
+</form>
+</div>
