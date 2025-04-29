@@ -13,7 +13,7 @@ router.post("/register", async(req, res) =>{
       }
 });
 
-router.put('/usuarios/:id', async (req, res) => {
+router.put("/usuarios/:id", async (req, res) => {
   try {
       const UserUpdated = await authService.UpdateUser(req, res);
       res

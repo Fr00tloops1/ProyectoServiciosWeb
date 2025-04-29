@@ -1,5 +1,6 @@
-const { DataTypes, Model} = require('sequelize');
-const sequelize = require('../config/database');
+const {DataTypes} = require('sequelize');
+const sequelize = require ('../config/database');
+const User = require ('./user');
 
 class Question extends Model {}
 Question.init(
@@ -14,7 +15,7 @@ Question.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'User',
+                model: User,
                 key: 'id'
             }
         },
