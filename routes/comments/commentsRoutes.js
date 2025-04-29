@@ -4,7 +4,7 @@ const commentsService = require('../../services/comments');
 const { status } = require("http-status");
 
 // Crear comentario
-router.post("/comentarios", async (req, res) => {
+router.post("/comments", async (req, res) => {
   try {
       const comment = await commentsService.createComment(req, res);
       return res.status(201).json(comment);
@@ -14,7 +14,7 @@ router.post("/comentarios", async (req, res) => {
 });
 
 // Editar comentario
-router.put("/comentarios/:id", async (req, res) => {
+router.put("/comments/:id", async (req, res) => {
   try {
       const commentUpdated = await commentsService.updateComment(req, res);
       return res.status(status.OK).json({ message: 'Comentario actualizado', comment: commentUpdated });
@@ -24,7 +24,7 @@ router.put("/comentarios/:id", async (req, res) => {
 });
 
 // Ver todos los comentarios
-router.get("/comentarios", async (req, res) => {
+router.get("/comments", async (req, res) => {
   try {
       const comments = await commentsService.getComments(req, res);
       return res.status(status.OK).json(comments);
@@ -33,8 +33,21 @@ router.get("/comentarios", async (req, res) => {
   }
 });
 
+// Obtener comentario por ID
+router.get("/comments/:id", async (req, res) => {
+  try {
+      const comment = await commentsService.getCommentById(req, res); 
+      if (!comment) {
+          return res.status(status.NOT_FOUND).json({ error: "Comentario no encontrado" });
+      }
+      return res.status(status.OK).json(comment);
+  } catch (exception) {
+      return res.status(500).json({ error: exception.message });
+  }
+
+});
 // Borrar comentario
-router.delete("/comentarios/:id", async (req, res) => {
+router.delete("/comments/:id", async (req, res) => {
   try {
       const commentDeleted = await commentsService.deleteComment(req, res);
       return res.status(status.NO_CONTENT).json(commentDeleted);
