@@ -1,17 +1,22 @@
 const express = require('express');
 const sequelize = require('./config/database')
 const routes = require('./routes/index');
+const cors = require('cors');
 const app = express();
 require('dotenv').config()
 
 //Variable que contiene el puerto del servidor:
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8001;
 
 //Variable que contiene el nombre de la Base de Datos:
 const dbName = process.env.DB_NAME;
     
 //Uso de los middlewares:
 app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
+
 
 sequelize.sync()
     .then(() =>console.log(`La Base de Datos ${dbName} esta lista para usarse`))

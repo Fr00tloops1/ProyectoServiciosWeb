@@ -4,7 +4,8 @@ require('dotenv').config();
 
 const authRouter = require('./api/user/auth');
 router.use( process.env.BASE_URL, authRouter);
-
+const commentsRouter = require('./api/comments/commentsRoutes');
+router.use( process.env.BASE_URL, commentsRouter);
 
 
 module.exports = router; 
