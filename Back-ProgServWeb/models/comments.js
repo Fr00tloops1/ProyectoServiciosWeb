@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
-const sequelize = require ('../config/database');
+const sequelize = require('../config/database');
 
 class Comments extends Model {}
 Comments.init(
@@ -12,30 +12,36 @@ Comments.init(
         answersqID: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references:{
-                model: 'Question',
+            references: {
+                model: 'answersq',
                 key: 'id'
-            }
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
         },
         myAnswersID: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references:{
-                model: 'myAnswer',
+            references: {
+                model: 'myanswers',
                 key: 'id'
-            }
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
         },
-        comment:{
+        comment: {
             type: DataTypes.STRING(140),
             allowNull: false,
         }
     },
     {
-        modelName: 'Comments',
+        sequelize,
+        modelName: 'comments',
         tableName: 'comments',
-        sequelize
+        timestamps: true
     }
-)
-Comments.sync({alter: true});
+);
 
-module.exports = Comments
+Comments.sync({ alter: true });
+
+module.exports = Comments;

@@ -30,5 +30,6 @@ answerq.init(
     timestamps: true
     }
 );
+answerq.sync({alter: true});
 
 module.exports = answerq;

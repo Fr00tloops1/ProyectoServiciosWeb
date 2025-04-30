@@ -24,11 +24,11 @@ User.init(
         }
     },
     {
-        timestamps: true,
-        modelName: 'User',
+        modelName: 'user',
         tableName: 'user',
         sequelize,
     }
 );
+User.sync({alter: true});
 
 module.exports = User;

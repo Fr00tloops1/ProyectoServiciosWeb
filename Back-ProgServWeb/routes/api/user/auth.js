@@ -13,7 +13,7 @@ router.post("/register", async(req, res) =>{
       }
 });
 
-router.put('/usuarios/:id', async (req, res) => {
+router.put("/usuarios/:id", async (req, res) => {
   try {
       const UserUpdated = await authService.UpdateUser(req, res);
       res
@@ -39,6 +39,24 @@ router.delete("/borrar/:id", async(req, res) =>{
       } catch (exception) {
         return res.status(500);
       }
+});
+
+router.get("/LogOut/:id", async(req, res) =>{
+  try {
+      const user = await authService.LogOut(req, res);
+      return res.status(status.OK).json(user);
+    } catch (exception) {
+      return res.status(500);
+    }
+});
+
+router.post("/LogIn", async(req, res) =>{
+  try {
+      const user = await authService.LogIn(req, res);
+      return res.status(status.OK).json(user);
+    } catch (exception) {
+      return res.status(500);
+    }
 });
 
 module.exports = router;
