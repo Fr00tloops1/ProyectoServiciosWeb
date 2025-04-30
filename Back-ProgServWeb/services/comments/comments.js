@@ -1,5 +1,5 @@
 const { where } = require('sequelize');
-const CommentModel = require('../models/comments'); 
+const CommentModel = require('../../models/comments'); 
 const { status } = require('http-status');
 
 // Crear comentario

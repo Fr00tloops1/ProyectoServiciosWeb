@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ApiUsuariosService } from '../../services/user/api.usuarios.service';
 
 @Component({
   selector: 'app-login',
@@ -7,16 +9,28 @@ import { NgForm } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent{
+
+
+  usuarios: any[] = [];
+  constructor(private router: Router, private apiServices: ApiUsuariosService){ }
+
 
   NameField: string = ""
   SemesterField!: number  
   PasswordField: string = ""
-  
 
   SendData(form: NgForm){
     if(form.valid){
-      console.log("Ou yeah")
+      this.apiServices.LogIn(this.NameField,this.SemesterField,this.PasswordField).subscribe({
+        next: (data) => {
+          console.log(data.user)
+          this.router.navigate(['/Home'])
+        },
+        error: (error) =>{
+          console.log("Errorsote", error);
+        }
+      })
     }
   }
 

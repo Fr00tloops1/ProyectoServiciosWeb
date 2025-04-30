@@ -98,6 +98,38 @@ const register = async (req, res) => {
       }
   };
 
+  const LogIn = async (req, res) => {
+    try {
+
+      const { name, semester, password } = req.body;
+      const usuario = await UserModel.findOne({ where: { name,semester }});
+      
+  
+      if (!usuario) {
+        return res.status(status.NOT_FOUND).json({ error: "Usuario no encontrado" });
+      }
+
+    const passwordValida = await bcryp.compare(password, usuario.password);
+    if (!passwordValida) {
+      return res.status(401).json({ error: "Contraseña incorrecta" });
+    }
+
+     
+      
+      res
+      .status(status.OK) 
+      .json({
+        user: {
+          id: usuario.id,
+          name: usuario.name,
+          semester: usuario.semester
+        }
+      });
+    } catch (exception) {
+      return exception.message;
+    }
+  };
+
   const LogOut = async (req, res) => {
     try {
         const { id } = req.params;
@@ -116,5 +148,5 @@ const register = async (req, res) => {
       }
   };
   
-  module.exports = { UpdateUser , register , GetUsers, DeleteUser, LogOut};
+  module.exports = { UpdateUser , register , GetUsers, DeleteUser, LogOut, LogIn};
 

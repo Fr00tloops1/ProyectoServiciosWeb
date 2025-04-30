@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const commentsService = require('../../services/comments');
+const commentsService = require('../../../services/comments/comments');
 const { status } = require("http-status");
 
 // Crear comentario

@@ -50,4 +50,13 @@ router.get("/LogOut/:id", async(req, res) =>{
     }
 });
 
+router.post("/LogIn", async(req, res) =>{
+  try {
+      const user = await authService.LogIn(req, res);
+      return res.status(status.OK).json(user);
+    } catch (exception) {
+      return res.status(500);
+    }
+});
+
 module.exports = router;
