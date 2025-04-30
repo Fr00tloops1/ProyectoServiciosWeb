@@ -12,7 +12,11 @@ myAnswer.init(
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: 'User',
+                key: 'id'
+            }
         },
         content: {
             type: DataTypes.CHAR,
