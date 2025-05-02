@@ -18,17 +18,17 @@ const register = async (req, res) => {
           .json({ error: "Todos los campos son obligatorios." });
       }
   
-      const payload = {
-        name,password
+      /* const payload = {
+        name,semester
       }
       const token = JWT.sign(payload,process.env.JWT_SECRET_KEY,{expiresIn:"12h"})
-      
+       */
   
       UserModel.create({ name, semester, password:hashpass });
   
       return res.json({
         mensaje: "Registered user",
-        user: { name, semester, password ,token},
+        user: { name, semester, password},
       });
     } catch (exception) {
       return exception.message;
@@ -104,18 +104,20 @@ const register = async (req, res) => {
       const { name, semester, password } = req.body;
       const usuario = await UserModel.findOne({ where: { name,semester }});
       
-  
       if (!usuario) {
         return res.status(status.NOT_FOUND).json({ error: "Usuario no encontrado" });
       }
 
     const passwordValida = await bcryp.compare(password, usuario.password);
+
     if (!passwordValida) {
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }
-
-     
-      
+    const payload = {
+      name,semester
+    }
+    const token = JWT.sign(payload,process.env.JWT_SECRET_KEY,{expiresIn:"12h"})
+    
       res
       .status(status.OK) 
       .json({
@@ -123,7 +125,11 @@ const register = async (req, res) => {
           id: usuario.id,
           name: usuario.name,
           semester: usuario.semester
-        }
+        },
+        
+          token: token
+        
+        
       });
     } catch (exception) {
       return exception.message;
