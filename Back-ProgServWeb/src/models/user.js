@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../../config/database');
+const sequelize = require('../config/database');
+const { use } = require('../routes/public');
 
 class User extends Model {}
 User.init(
@@ -10,9 +11,11 @@ User.init(
             allowNull: true,
             autoIncrement: true
         },
-        name: {
+        NameUser: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true,
+            
         },
         semester: {
             type: DataTypes.TINYINT,
@@ -29,5 +32,8 @@ User.init(
         sequelize,
     }
 );
+
+User.sync({alter: true});
+
 
 module.exports = User;

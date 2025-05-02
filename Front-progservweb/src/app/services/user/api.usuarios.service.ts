@@ -11,8 +11,8 @@ export class ApiUsuariosService {
 
   private API_URL = 'http://localhost:8001'; 
 
-  LogIn(name: string, semester: number, password: string): Observable<any> {
-    const body = { name, semester, password };
+  LogIn(NameUser: string, semester: number, password: string): Observable<any> {
+    const body = { NameUser, semester, password };
     return this.http.post(`${this.API_URL}/LogIn`, body);
   }
 
