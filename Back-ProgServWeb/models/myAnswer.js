@@ -1,6 +1,5 @@
 const {DataTypes} = require ('sequelize');
 const sequelize = require ('../config/database');
-const User = require ('./user');
 
 class myAnswer extends Model {}
 myAnswer.init(
@@ -15,7 +14,7 @@ myAnswer.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: User,
+                model: 'User',
                 key: 'id'
             }
         },
@@ -34,6 +33,5 @@ myAnswer.init(
         sequelize,
     }
 );
-myAnswer.sync({alter: true});
 
 module.exports = myAnswer;

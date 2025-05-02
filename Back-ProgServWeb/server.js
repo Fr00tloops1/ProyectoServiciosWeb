@@ -23,7 +23,7 @@ sequelize.sync()
     .catch(err =>console.log(err));
 
 app.listen(PORT, ()=>{
-    console.log(`El servidor MARTIN_REDES_OJOALEGRE esta corriendo en el puerto: ${PORT}`)
+    console.log(`El servidor del proyecto esta corriendo en el puerto: ${PORT}`)
 });
 
 app.use(routes.unprotectedRoutes);

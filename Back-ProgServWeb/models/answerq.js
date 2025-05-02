@@ -1,4 +1,4 @@
-const { Model,DataTypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 class answerq extends Model {}
@@ -30,5 +30,5 @@ answerq.init(
     timestamps: true
     }
 );
-answerq.sync({alter: true});
+
 module.exports = answerq;

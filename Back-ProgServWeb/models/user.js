@@ -7,7 +7,7 @@ User.init(
         id: {
             primaryKey: true,
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             autoIncrement: true
         },
         name: {
@@ -24,11 +24,10 @@ User.init(
         }
     },
     {
-        modelName: 'user',
+        modelName: 'User',
         tableName: 'user',
         sequelize,
     }
 );
-User.sync({alter: true});
 
 module.exports = User;
