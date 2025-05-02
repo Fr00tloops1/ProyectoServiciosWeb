@@ -113,9 +113,6 @@ const register = async (req, res) => {
     if (!passwordValida) {
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }
-
-     
-      
       res
       .status(status.OK) 
       .json({
