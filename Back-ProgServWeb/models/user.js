@@ -10,7 +10,7 @@ User.init(
             allowNull: false,
             autoIncrement: true
         },
-        name: {
+        iguana: {
             type: DataTypes.STRING,
             allowNull: false
         },
