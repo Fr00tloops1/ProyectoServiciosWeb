@@ -15,9 +15,7 @@ Comments.init(
             references: {
                 model: 'answersq',
                 key: 'id'
-            },
-            onUpdate: 'CASCADE',
-            onDelete: 'CASCADE'
+            }
         },
         myAnswersID: {
             type: DataTypes.INTEGER,
@@ -25,9 +23,7 @@ Comments.init(
             references: {
                 model: 'myanswers',
                 key: 'id'
-            },
-            onUpdate: 'CASCADE',
-            onDelete: 'CASCADE'
+            }
         },
         comment: {
             type: DataTypes.STRING(140),
@@ -39,9 +35,8 @@ Comments.init(
         modelName: 'comments',
         tableName: 'comments',
         timestamps: true
+
     }
 );
-
-Comments.sync({ alter: true });
 
 module.exports = Comments;

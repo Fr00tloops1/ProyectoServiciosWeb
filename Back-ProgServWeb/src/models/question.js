@@ -1,6 +1,7 @@
-const {DataTypes} = require('sequelize');
-const sequelize = require ('../config/database');
-const User = require ('./user');
+const {DataTypes, Model} = require('sequelize');
+const sequelize = require('../config/database');
+const userModel = require('../models/user')
+
 
 class Question extends Model {}
 Question.init(
@@ -15,7 +16,7 @@ Question.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: User,
+                model: userModel,
                 key: 'id'
             }
         },
@@ -35,9 +36,9 @@ Question.init(
     {
         modelName: 'Question',
         tableName: 'questions',
+        timestamps: false,
         sequelize,
     }
 );
-Question.sync({alter: true});
 
 module.exports = Question;

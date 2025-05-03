@@ -1,8 +1,8 @@
-const { DataTypes, Model } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-class User extends Model {}
-User.init(
+class answerq extends Model {}
+answerq.init(
     {
         id: {
             primaryKey: true,
@@ -10,25 +10,25 @@ User.init(
             allowNull: false,
             autoIncrement: true
         },
-        iguana: {
+        content: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        semester: {
+        questionID: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        valoration: {
             type: DataTypes.TINYINT,
-            allowNull: false
-        },
-        password: {
-            type: DataTypes.STRING,
             allowNull: false
         }
     },
     {
-        modelName: 'user',
-        tableName: 'user',
-        sequelize,
+    sequelize,
+    modelName: 'answerq',
+    tableName: 'answersq',
+    timestamps: true
     }
 );
-User.sync({alter: true});
 
-module.exports = User;
+module.exports = answerq;
