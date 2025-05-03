@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "jsdoc": "^4.0.4",
+    "swagger-editor": "^4.14.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
