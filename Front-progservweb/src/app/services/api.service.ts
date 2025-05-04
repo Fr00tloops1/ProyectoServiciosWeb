@@ -20,8 +20,9 @@ export class ApiService {
     return this.http.post(`${this.API_URL}/register`, usuario);
   }
 
-  actualizarUsuario(id: string, usuario: any): Observable<any> {
-    return this.http.put(`${this.API_URL}/usuarios/${id}`, usuario);
+  actualizarUsuario(id: number, NameUser: string, semester: number, password: string): Observable<any> {
+    const usuario = { NameUser, semester, password };
+    return this.http.put(`${this.API_URL}/usuarios/${id}`,usuario);
   }
 
   eliminarUsuario(id: string): Observable<any> {

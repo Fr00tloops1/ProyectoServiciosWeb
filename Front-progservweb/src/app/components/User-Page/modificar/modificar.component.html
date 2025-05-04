@@ -9,7 +9,7 @@
   
     <div class="relative bg-[#0f1e2e] rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] w-[360px] pt-12 pb-10 px-8 flex flex-col items-center">
       <div class="absolute top-2 left-1/2 -translate-x-1/2 text-[#4a5a6a] text-[10px] tracking-widest font-semibold select-none">
-        ENROLLMENT
+        ACTUALIZAR
       </div>
       <div class="absolute top-4 right-4 w-6 h-2 rounded-full bg-[#4ad3c9]"></div>
       <div class="flex items-center space-x-2 mb-6">
@@ -18,11 +18,11 @@
       </div>
       <h1 class="text-white text-lg font-semibold mb-2 select-none">Welcome!</h1>
       <p class="text-[#7a8a9a] text-center text-sm mb-6 select-none leading-relaxed max-w-[280px]">
-        Enter your name, semester and password to login.
+        Enter your name, semester and password to Update.
       </p>
   
       <!-- Angular Form -->
-      <form class="w-full space-y-3" #myform="ngForm" (ngSubmit)="SendData(myform)">
+      <form class="w-full space-y-3" #myform="ngForm" (ngSubmit)="SendUpdate(myform)">
         <div class="relative">
           <span class="absolute inset-y-0 left-3 flex items-center text-[#4a5a6a] text-sm">
             <i class="fas fa-user"></i>
