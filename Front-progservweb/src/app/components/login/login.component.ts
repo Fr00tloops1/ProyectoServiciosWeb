@@ -25,8 +25,12 @@ export class LoginComponent{
       this.apiServices.LogIn(this.NameField,this.SemesterField,this.PasswordField).subscribe({
         next: (data) => {
           console.log(data.user)
-          this.router.navigate(['/Home'])
+          console.log(data.token)
+          this.router.navigate(['/User'])
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userId', data.user.id);
         },
+
         error: (error) =>{
           console.log("Errorsote", error);
         }

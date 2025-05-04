@@ -3,7 +3,7 @@ const router = express.Router();
 const authService = require('../../../services/user/auth');
 require('dotenv').config();
 const { status } = require("http-status");
-const validateMiddleware = require('../../../middlewares/validateUser')
+const validateMiddleware = require('../../../middlewares/middlewaresAmano');
 
 router.post("/register", validateMiddleware, async(req, res) =>{
     try {

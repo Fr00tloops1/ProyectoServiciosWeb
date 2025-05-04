@@ -1,5 +1,7 @@
 const Joi = require('joi');
 
+
+// Validar datos del usuario
 const schema = Joi.object({
     NameUser: Joi.string().min(3).required,
     password: Joi.string().min(8).required,
