@@ -4,6 +4,7 @@ const routes = require('./routes/index');
 const cors = require('cors');
 const app = express();
 require('dotenv').config()
+const loggerMiddleware = require('./middlewares/logger');
 
 //Variable que contiene el puerto del servidor:
 const PORT = process.env.PORT || 8001;
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 8001;
 const dbName = process.env.DB_NAME;
     
 //Uso de los middlewares:
+app.use(loggerMiddleware);
 app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:4200'

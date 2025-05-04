@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const questionService = require('../../../services/questions/auth');
+const questionService = require('../../../services/questions/questions');
 const { status } = require('http-status');
 
 router.post("/CrearPreguntas", async(req,res) =>{
@@ -25,7 +25,7 @@ router.get("/MostrarPreguntas", async(req, res) =>{
     }
 });
 
-router.get("/EliminarPregunta", async(req, res) =>{
+router.delete("/EliminarPregunta/:id", async(req, res) =>{
     try{
         const question = await questionService.deleteQ(req, res);
         return res
@@ -37,7 +37,7 @@ router.get("/EliminarPregunta", async(req, res) =>{
     }
 });
 
-router.get("/EditarPregunta", async(req, res) =>{
+router.put("/EditarPregunta/:id", async(req, res) =>{
     try{
         const question = await questionService.updateQ(req, res);
         return res

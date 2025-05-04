@@ -10,7 +10,7 @@ User.init(
             allowNull: true,
             autoIncrement: true
         },
-        name: {
+        NameUser: {
             type: DataTypes.STRING,
             allowNull: false
         },

@@ -7,28 +7,28 @@ const JWT = require('jsonwebtoken');
 
 const register = async (req, res) => {
     try {
-      const { name, semester, password } = req.body;
+      const { NameUser, semester, password } = req.body;
       const salt = await bcryp.genSalt(10);
       const hashpass = await bcryp.hash(password,salt);
       
   
-      if (!name || !semester || !password) {
+      if (!NameUser || !semester || !password) {
         return res
           .status(status.BAD_REQUEST)
           .json({ error: "Todos los campos son obligatorios." });
       }
   
       const payload = {
-        name,password
+        NameUser,password
       }
       const token = JWT.sign(payload,process.env.JWT_SECRET_KEY,{expiresIn:"12h"})
       
   
-      UserModel.create({ name, semester, password:hashpass });
+      UserModel.create({ NameUser, semester, password:hashpass });
   
       return res.json({
         mensaje: "Usuario registrado",
-        user: { name, semester, password ,token},
+        user: { NameUser, semester, password ,token},
       });
     } catch (exception) {
       return exception.message;
@@ -40,7 +40,7 @@ const register = async (req, res) => {
   const UpdateUser = async (req, res) => {
   
     const { id } = req.params;
-    const { name, semester, password } = req.body;
+    const { NameUser, semester, password } = req.body;
   
     const salt = await bcryp.genSalt(10);
     const hashpass = await bcryp.hash(password,salt);
@@ -51,7 +51,7 @@ const register = async (req, res) => {
         if (!usuario) {
         return res .status(status.NOT_FOUND).json({ error: "Usuario no encontrado"});
         }
-        await usuario.update({ name, semester, password:hashpass } );
+        await usuario.update({ NameUser, semester, password:hashpass } );
         return res
         .status(status.OK)
         .json({ message: "Usuario actualizado", user: usuario });
@@ -101,8 +101,8 @@ const register = async (req, res) => {
   const LogIn = async (req, res) => {
     try {
 
-      const { name, semester, password } = req.body;
-      const usuario = await UserModel.findOne({ where: { name,semester }});
+      const { NameUser, semester, password } = req.body;
+      const usuario = await UserModel.findOne({ where: { NameUser,semester }});
       
   
       if (!usuario) {
@@ -118,7 +118,7 @@ const register = async (req, res) => {
       .json({
         user: {
           id: usuario.id,
-          name: usuario.name,
+          name: usuario.NameUser,
           semester: usuario.semester
         }
       });
@@ -137,7 +137,7 @@ const register = async (req, res) => {
         }
         
         res.json({
-          mensaje: "Hola te logeoaste out",
+          mensaje: "Saliste de la sesionS",
           user: { usuario },
         });
     } catch (exception) {
