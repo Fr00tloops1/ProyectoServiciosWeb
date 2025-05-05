@@ -8,13 +8,14 @@ const schema = Joi.object({
     password: Joi.string().min(8).presence('required'),
 });
 
-function validateData(req, res){
+function validateData(req, res, next){
     const {error} = schema.validate(req.body);
     if(error){
         return res
         .status(400)
         .json({error: error});
     }
+    next()
 }
 
 module.exports = validateData;

@@ -5,7 +5,7 @@ require('dotenv').config();
 const process = require('process');
 const JWT = require('jsonwebtoken');
 
-const register = async (req, res) => {
+const register  =  async (req, res) => {
     try {
       const { NameUser, semester, password } = req.body;
       const salt = await bcryp.genSalt(10);
@@ -18,11 +18,6 @@ const register = async (req, res) => {
           .json({ error: "Todos los campos son obligatorios." });
       }
   
-      /* const payload = {
-        name,semester
-      }
-      const token = JWT.sign(payload,process.env.JWT_SECRET_KEY,{expiresIn:"12h"})
-       */
   
       UserModel.create({ NameUser, semester, password:hashpass });
   
