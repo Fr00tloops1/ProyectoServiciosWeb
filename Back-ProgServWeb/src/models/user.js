@@ -1,6 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/database');
-const { use } = require('../routes/public');
 
 class User extends Model {}
 User.init(
@@ -32,8 +31,5 @@ User.init(
         sequelize,
     }
 );
-
-User.sync({alter: true});
-
 
 module.exports = User;

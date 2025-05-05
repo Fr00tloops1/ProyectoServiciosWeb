@@ -28,7 +28,7 @@ const register = async (req, res) => {
   
       return res.json({
         mensaje: "Usuario registrado",
-        user: { NameUser, semester, password ,token},
+        user: { NameUser, semester, password},
       });
     } catch (exception) {
       return exception.message;

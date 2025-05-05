@@ -5,7 +5,7 @@ require('dotenv').config();
 const { status } = require("http-status");
 const validateMiddleware = require('../../../middlewares/middlewaresAmano');
 
-router.post("/register", validateMiddleware, async(req, res) =>{
+router.post("/register", async(req, res) =>{
     try {
         const user = await authService.register(req, res);
         return res.status(201).json(user);
