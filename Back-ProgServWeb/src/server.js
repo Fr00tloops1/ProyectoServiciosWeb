@@ -1,7 +1,7 @@
 const express = require('express');
 const sequelize = require('./config/database')
 const routes = require('./routes/index');
-const middlewares_Prehechos = require('./middlewares/middlewares')
+const middlewares_Prehechos = require('./middlewares/middlewaresPrehechos')
 const app = express()
 const swaggerUi = require('swagger-ui-express');
 const specs = require('../swagger/swagger.js');
@@ -13,8 +13,8 @@ const PORT = process.env.PORT || 8001;
 
 //Variable que contiene el nombre de la Base de Datos:
 const dbName = process.env.DB_NAME;
-    
-//Uso de los middlewares:
+
+//Uso de Middlewares
 middlewares_Prehechos(app);
 
 app.use(routes.unprotectedRoutes);

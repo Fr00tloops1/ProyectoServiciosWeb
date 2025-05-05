@@ -27,8 +27,8 @@ const register = async (req, res) => {
       UserModel.create({ NameUser, semester, password:hashpass });
   
       return res.json({
-        mensaje: "Registered user",
-        user: { NameUser, semester, password},
+        mensaje: "Usuario registrado",
+        user: { NameUser, semester, password ,token},
       });
     } catch (exception) {
       return exception.message;
@@ -148,7 +148,7 @@ const register = async (req, res) => {
         }
         
         res.json({
-          mensaje: "Hola te logeoaste out",
+          mensaje: "Saliste de la sesionS",
           user: { usuario },
         });
     } catch (exception) {

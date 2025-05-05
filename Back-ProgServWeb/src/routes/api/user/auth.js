@@ -3,20 +3,14 @@ const router = express.Router();
 const authService = require('../../../services/user/auth');
 require('dotenv').config();
 const { status } = require("http-status");
-
-/**
- * @swagger
- * tags:
- *   name: Auth
- *   description: Endpoints para la autenticación y gestión de usuarios
- */
+const validateMiddleware = require('../../../middlewares/middlewaresAmano');
 
 /**
  * @swagger
  * /register:
  *   post:
- *     summary: Registrar un nuevo usuario en el sistema.
- *     description: Este endpoint permite registrar a un nuevo usuario proporcionando un nombre de usuario, semestre y contraseña.
+ *     summary: Registrar un nuevo usuario.
+ *     description: Este endpoint permite registrar un nuevo usuario proporcionando los datos requeridos. El middleware de validación verifica que la solicitud cumpla con los requisitos antes de crear el usuario.
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -27,20 +21,23 @@ const { status } = require("http-status");
  *             properties:
  *               NameUser:
  *                 type: string
- *                 example: "usuario1"
+ *                 example: "usuarioNuevo"
  *               semester:
  *                 type: string
- *                 example: "6"
+ *                 example: "5"
  *               password:
  *                 type: string
- *                 example: "1234"
+ *                 example: "abcd1234"
  *     responses:
  *       201:
  *         description: Usuario registrado exitosamente.
  *       400:
- *         description: TODOS LOS CAMPOS SON OBLIGATORIOS.
+ *         description: Solicitud inválida o datos incompletos.
+ *       500:
+ *         description: Error interno del servidor.
  */
-router.post("/register", async(req, res) =>{
+
+router.post("/register", validateMiddleware, async(req, res) =>{
     try {
         const user = await authService.register(req, res);
         return res.status(201).json(user);
