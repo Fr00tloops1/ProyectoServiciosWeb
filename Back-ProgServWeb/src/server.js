@@ -1,33 +1,13 @@
-const express = require('express');
-const sequelize = require('./config/database')
-const routes = require('./routes/index');
-const app = express()
-require('dotenv').config()
-const cors = require('cors');
-const morgan = require('morgan');
+const app = require('./app');
+require('dotenv').config();
 
-//Middleware Logger
-const logger = morgan('tiny');
-
-//Variable que contiene el puerto del servidor:
+// Variable que contiene el puerto del servidor:
 const PORT = process.env.PORT || 8001;
 
-//Variable que contiene el nombre de la Base de Datos:
-const dbName = process.env.DB_NAME;
 
-//Uso de Middlewares
-app.use(logger);
-app.use(cors({origin: 'http://localhost:4200'}));
-app.use(express.json());
-
-app.use(routes.unprotectedRoutes);
-sequelize.sync()
-    .then(() =>console.log(`La Base de Datos ${dbName} esta lista para usarse`))
-    .catch(err =>console.log(err));
-
-app.listen(PORT, ()=>{
-    console.log(`El servidor del proyecto esta corriendo en el puerto: ${PORT}`)
+const server = app.listen(PORT, () => {
+    console.log(`El servidor del proyecto esta corriendo en el puerto: ${PORT}`);
 });
 
-
-module.exports = {app}
+// Exportar el servidor para posibles pruebas
+module.exports = server;

@@ -1,65 +1,151 @@
 const express = require('express');
 const router = express.Router();
-const authService = require('../../../services/user/auth');
-require('dotenv').config();
-const { status } = require("http-status");
-const validateMiddleware = require('../../../middlewares/validateUser');
+const authController = require('../../../controllers/userControllers');
+const ValidateFields = require('../../../middlewares/validateFields');
+const validateFields = require('../../../middlewares/validateFields');
 
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Registrar un nuevo usuario.
+ *     description: Registra un nuevo usuario después de validar los datos.
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               NameUser:
+ *                 type: string
+ *               semester:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Usuario registrado exitosamente.
+ *       400:
+ *         description: Datos inválidos.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.post('/register', validateFields, authController.register);
 
-router.post("/register", validateMiddleware, async(req, res) =>{
-    try {
-        const user = await authService.register(req, res);
+/**
+ * @swagger
+ * /usuarios/{id}:
+ *   put:
+ *     summary: Actualizar información de un usuario por ID.
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               NameUser:
+ *                 type: string
+ *               semester:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Usuario actualizado.
+ *       500:
+ *         description: Error del servidor.
+ */
+router.put('/usuarios/:id', ValidateFields, authController.updateUser);
 
-        return res.status(201).json(user);
-      } catch (exception) {
-        return res.status(500);
-      }
-});
+/**
+ * @swagger
+ * /obtener:
+ *   get:
+ *     summary: Obtener todos los usuarios registrados.
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: Lista de usuarios.
+ *       500:
+ *         description: Error del servidor.
+ */
+router.get('/obtener', authController.getUsers);
 
-router.put("/usuarios/:id", validateMiddleware, async (req, res) => {
-  try {
-      const UserUpdated = await authService.UpdateUser(req, res);
-      res
-      .status(status.OK).json({ message: 'Usuario actualizado', user: UserUpdated });
-  } catch (exception) {
-      return res.status(500);
-  }
-});
+/**
+ * @swagger
+ * /borrar/{id}:
+ *   delete:
+ *     summary: Eliminar un usuario por su ID.
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: Usuario eliminado.
+ *       404:
+ *         description: Usuario no encontrado.
+ */
+router.delete('/borrar/:id', authController.deleteUser);
 
-router.get("/obtener", async(req, res) =>{
-    try {
-        const user = await authService.GetUsers(req, res);
-        return res.status(status.OK).json(user);
-      } catch (exception) {
-        return res.status(500);
-      }
-});
+/**
+ * @swagger
+ * /LogOut/{id}:
+ *   get:
+ *     summary: Cerrar sesión de un usuario.
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Sesión cerrada.
+ *       500:
+ *         description: Error del servidor.
+ */
+router.get('/LogOut/:id', authController.logout);
 
-router.delete("/borrar/:id", async(req, res) =>{
-    try {
-        const user = await authService.DeleteUser(req, res);
-        return res.status(status.NO_CONTENT).json(user);
-      } catch (exception) {
-        return res.status(500);
-      }
-});
-
-router.get("/LogOut/:id", async(req, res) =>{
-  try {
-      const user = await authService.LogOut(req, res);
-      return res.status(status.OK).json(user);
-    } catch (exception) {
-      return res.status(500);
-    }
-});
-
-router.post("/LogIn", async(req, res) =>{
-  try {
-      const user = await authService.LogIn(req, res);
-      return res.status(status.OK).json(user);
-    } catch (exception) {
-      return res.status(500);
-    }
-});
+/**
+ * @swagger
+ * /LogIn:
+ *   post:
+ *     summary: Iniciar sesión.
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               NameUser:
+ *                 type: string
+ *               semester:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Inicio de sesión exitoso.
+ *       500:
+ *         description: Error del servidor.
+ */
+router.post('/LogIn', authController.login);
 
 module.exports = router;
