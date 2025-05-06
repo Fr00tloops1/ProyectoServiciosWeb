@@ -8,10 +8,10 @@ function validateUser (req, res, next){
             .status(status.BAD_REQUEST)
             .json({message:"El nombre de usuario debe contener al menos 8 caracteres"})
         }
-        if(!semester || semester < 1 || semester > 9){
+        if(!semester || semester < 1 || semester > 12){
             return res
             .status(status.BAD_REQUEST)
-            .json({message:"El semestre debe estar en un rango entre 1 y 9"})
+            .json({message:"El semestre debe estar entre 1 y 12"})
         }
         if(!password || password.length < 8){
             return res

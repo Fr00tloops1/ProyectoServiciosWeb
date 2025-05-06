@@ -1,7 +1,6 @@
 const express = require('express');
 const sequelize = require('./config/database')
 const routes = require('./routes/index');
-const middlewares_Prehechos = require('./middlewares/middlewaresPrehechos')
 const app = express()
 require('dotenv').config()
 const cors = require('cors');
