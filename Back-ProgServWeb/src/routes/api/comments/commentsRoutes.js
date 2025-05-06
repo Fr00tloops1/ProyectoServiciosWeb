@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const commentsService = require('../../../services/comments/comments');
+const commentsControllers = require('../../../controllers/commentsControllers');
 const { status } = require('http-status');
+const { body, param } = require('express-validator');
+const commentsController = new commentsControllers();
+const commentsService = require('../../../services/comments/comments.js');
+const validateFields = require('../../../middlewares/validateFields.js');
 
 /**
  * @swagger
@@ -40,14 +44,12 @@ const { status } = require('http-status');
  *       500:
  *         description: Error interno del servidor
  */
-router.post("/comments", async (req, res) => {
-  try {
-      const comment = await commentsService.createComment(req, res);
-      return res.status(201).json(comment);
-  } catch (exception) {
-      return res.status(500).json({ error: exception.message });
-  }
-});
+router.post("/comments",
+    body(["answersID", "myAnswersID"]).notEmpty(),
+    body("comment").notEmpty().isString().isLength({ min: 1, max: 140 }),
+    validateFields,
+    commentsController.createComment
+);
 
 /**
  * @swagger
@@ -80,14 +82,19 @@ router.post("/comments", async (req, res) => {
  *       500:
  *         description: Error interno del servidor
  */
-router.put("/comments/:id", async (req, res) => {
-  try {
-      const commentUpdated = await commentsService.updateComment(req, res);
-      return res.status(status.OK).json({ message: 'Comentario actualizado', comment: commentUpdated });
-  } catch (exception) {
-      return res.status(500).json({ error: exception.message });
-  }
-});
+router.put("/comments/:id",
+    param("id").notEmpty(),
+    body("comment").notEmpty().isString().isLength({ min: 1, max: 140 }),
+    validateFields,
+    async (req, res) => {
+        try {
+            const commentUpdated = await commentsService.updateComment(req, res);
+            return res.status(status.OK).json({ message: 'Comentario actualizado', comment: commentUpdated });
+        } catch (exception) {
+            return res.status(500).json({ error: exception.message });
+        }
+    }
+);
 
 /**
  * @swagger
@@ -102,12 +109,12 @@ router.put("/comments/:id", async (req, res) => {
  *         description: Error interno del servidor
  */
 router.get("/comments", async (req, res) => {
-  try {
-      const comments = await commentsService.getComments(req, res);
-      return res.status(status.OK).json(comments);
-  } catch (exception) {
-      return res.status(500).json({ error: exception.message });
-  }
+    try {
+        const comments = await commentsService.getComments(req, res);
+        return res.status(status.OK).json(comments);
+    } catch (exception) {
+        return res.status(500).json({ error: exception.message });
+    }
 });
 
 /**
@@ -132,15 +139,15 @@ router.get("/comments", async (req, res) => {
  *         description: Error interno del servidor
  */
 router.get("/comments/:id", async (req, res) => {
-  try {
-      const comment = await commentsService.getCommentById(req, res); 
-      if (!comment) {
-          return res.status(status.NOT_FOUND).json({ error: "Comentario no encontrado" });
-      }
-      return res.status(status.OK).json(comment);
-  } catch (exception) {
-      return res.status(500).json({ error: exception.message });
-  }
+    try {
+        const comment = await commentsService.getCommentById(req, res);
+        if (!comment) {
+            return res.status(status.NOT_FOUND).json({ error: "Comentario no encontrado" });
+        }
+        return res.status(status.OK).json(comment);
+    } catch (exception) {
+        return res.status(500).json({ error: exception.message });
+    }
 });
 
 /**
@@ -165,12 +172,12 @@ router.get("/comments/:id", async (req, res) => {
  *         description: Error interno del servidor
  */
 router.delete("/comments/:id", async (req, res) => {
-  try {
-      const commentDeleted = await commentsService.deleteComment(req, res);
-      return res.status(status.NO_CONTENT).json({ message: "Comentario eliminado", id: commentDeleted.id });
-  } catch (exception) {
-      return res.status(500).json({ error: exception.message });
-  }
+    try {
+        const commentDeleted = await commentsService.deleteComment(req, res);
+        return res.status(status.NO_CONTENT).json({ message: "Comentario eliminado", id: commentDeleted.id });
+    } catch (exception) {
+        return res.status(500).json({ error: exception.message });
+    }
 });
 
 module.exports = router;

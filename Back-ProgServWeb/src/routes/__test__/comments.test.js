@@ -42,7 +42,7 @@ describe('Comments Routes', () => {
         .post('/comments')
         .send({ answersqID: '1', myAnswersID: '1' }); // Falta el campo "comment"
 
-      expect(response.status).toBe(201); // Refleja el comportamiento actual
+      expect(response.status).toBe(201); 
       expect(response.body).toHaveProperty('id', 1);
     });
 

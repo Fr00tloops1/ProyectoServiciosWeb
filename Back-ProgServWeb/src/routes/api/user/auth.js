@@ -1,16 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const authService = require('../../../services/user/auth');
-require('dotenv').config();
-const { status } = require("http-status");
-const {validateData} = require('../../../middlewares/middlewaresAmano');
+const authController = require('../../../controllers/userControllers');
+const { validateData } = require('../../../middlewares/middlewaresAmano');
 
 /**
  * @swagger
  * /register:
  *   post:
  *     summary: Registrar un nuevo usuario.
- *     description: Este endpoint permite registrar un nuevo usuario proporcionando los datos requeridos. El middleware de validación verifica que la solicitud cumpla con los requisitos antes de crear el usuario.
+ *     description: Registra un nuevo usuario después de validar los datos.
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -21,37 +19,25 @@ const {validateData} = require('../../../middlewares/middlewaresAmano');
  *             properties:
  *               NameUser:
  *                 type: string
- *                 example: "usuarioNuevo"
  *               semester:
  *                 type: string
- *                 example: "5"
  *               password:
  *                 type: string
- *                 example: "abcd1234"
  *     responses:
  *       201:
  *         description: Usuario registrado exitosamente.
  *       400:
- *         description: Solicitud inválida o datos incompletos.
+ *         description: Datos inválidos.
  *       500:
  *         description: Error interno del servidor.
  */
-
-router.post("/register", validateData, async(req, res) =>{
-    try {
-        const user = await authService.register(req, res);
-        return res.status(201).json(user);
-    } catch (exception) {
-        return res.status(500);
-    }
-});
+router.post('/register', validateData, authController.register);
 
 /**
  * @swagger
  * /usuarios/{id}:
  *   put:
- *     summary: Actualizar la información de un usuario específico.
- *     description: Este endpoint permite actualizar los detalles de un usuario proporcionando su ID. Se puede modificar el nombre de usuario, semestre y contraseña.
+ *     summary: Actualizar información de un usuario por ID.
  *     tags: [Auth]
  *     parameters:
  *       - in: path
@@ -59,7 +45,6 @@ router.post("/register", validateData, async(req, res) =>{
  *         required: true
  *         schema:
  *           type: string
- *         description: ID único del usuario a actualizar.
  *     requestBody:
  *       required: true
  *       content:
@@ -69,57 +54,37 @@ router.post("/register", validateData, async(req, res) =>{
  *             properties:
  *               NameUser:
  *                 type: string
- *                 example: "usuarioActualizado"
  *               semester:
  *                 type: string
- *                 example: "7"
  *               password:
  *                 type: string
- *                 example: "5678"
  *     responses:
  *       200:
  *         description: Usuario actualizado.
  *       500:
- *         description: Error interno o usuario no encontrado.
+ *         description: Error del servidor.
  */
-router.put("/usuarios/:id", async (req, res) => {
-  try {
-      const UserUpdated = await authService.UpdateUser(req, res);
-      res
-      .status(status.OK).json({ message: 'Usuario actualizado', user: UserUpdated });
-  } catch (exception) {
-      return res.status(500);
-  }
-});
+router.put('/usuarios/:id', validateData, authController.updateUser);
 
 /**
  * @swagger
  * /obtener:
  *   get:
- *     summary: Obtener una lista de todos los usuarios registrados.
- *     description: Este endpoint permite obtener todos los usuarios registrados en el sistema. El resultado es una lista de objetos de usuario.
+ *     summary: Obtener todos los usuarios registrados.
  *     tags: [Auth]
  *     responses:
  *       200:
- *         description: Lista de usuarios obtenida exitosamente.
+ *         description: Lista de usuarios.
  *       500:
- *         description: Error interno del servidor.
+ *         description: Error del servidor.
  */
-router.get("/obtener", async(req, res) =>{
-    try {
-        const user = await authService.GetUsers(req, res);
-        return res.status(status.OK).json(user);
-    } catch (exception) {
-        return res.status(500);
-    }
-});
+router.get('/obtener', authController.getUsers);
 
 /**
  * @swagger
  * /borrar/{id}:
  *   delete:
  *     summary: Eliminar un usuario por su ID.
- *     description: Este endpoint permite eliminar un usuario específico proporcionando su ID. Tras la eliminación, el usuario ya no podrá acceder al sistema.
  *     tags: [Auth]
  *     parameters:
  *       - in: path
@@ -127,28 +92,19 @@ router.get("/obtener", async(req, res) =>{
  *         required: true
  *         schema:
  *           type: string
- *         description: ID único del usuario que se desea eliminar.
  *     responses:
  *       204:
- *         description: Usuario eliminado exitosamente.
+ *         description: Usuario eliminado.
  *       404:
  *         description: Usuario no encontrado.
  */
-router.delete("/borrar/:id", async(req, res) =>{
-    try {
-        const user = await authService.DeleteUser(req, res);
-        return res.status(status.NO_CONTENT).json(user);
-    } catch (exception) {
-        return res.status(500);
-    }
-});
+router.delete('/borrar/:id', authController.deleteUser);
 
 /**
  * @swagger
  * /LogOut/{id}:
  *   get:
  *     summary: Cerrar sesión de un usuario.
- *     description: Este endpoint cierra la sesión de un usuario específico proporcionando su ID. El usuario ya no estará autenticado en el sistema.
  *     tags: [Auth]
  *     parameters:
  *       - in: path
@@ -156,28 +112,19 @@ router.delete("/borrar/:id", async(req, res) =>{
  *         required: true
  *         schema:
  *           type: string
- *         description: ID único del usuario que desea cerrar sesión.
  *     responses:
  *       200:
- *         description: Usuario cerrado sesión exitosamente.
+ *         description: Sesión cerrada.
  *       500:
- *         description: Error interno del servidor.
+ *         description: Error del servidor.
  */
-router.get("/LogOut/:id", async(req, res) =>{
-  try {
-      const user = await authService.LogOut(req, res);
-      return res.status(status.OK).json(user);
-    } catch (exception) {
-      return res.status(500);
-    }
-});
+router.get('/LogOut/:id', authController.logout);
 
 /**
  * @swagger
  * /LogIn:
  *   post:
- *     summary: Iniciar sesión de un usuario.
- *     description: Este endpoint permite a un usuario autenticarse proporcionando su nombre de usuario, semestre y contraseña. Si las credenciales son correctas, el usuario podrá acceder al sistema.
+ *     summary: Iniciar sesión.
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -188,26 +135,16 @@ router.get("/LogOut/:id", async(req, res) =>{
  *             properties:
  *               NameUser:
  *                 type: string
- *                 example: "usuario1"
  *               semester:
  *                 type: string
- *                 example: "6"
  *               password:
  *                 type: string
- *                 example: "1234"
  *     responses:
  *       200:
- *         description: Usuario autenticado exitosamente y sesión iniciada.
+ *         description: Inicio de sesión exitoso.
  *       500:
- *         description: Error interno del servidor.
+ *         description: Error del servidor.
  */
-router.post("/LogIn", async(req, res) =>{
-  try {
-      const user = await authService.LogIn(req, res);
-      return res.status(status.OK).json(user);
-    } catch (exception) {
-      return res.status(500);
-    }
-});
+router.post('/LogIn', authController.login);
 
 module.exports = router;
