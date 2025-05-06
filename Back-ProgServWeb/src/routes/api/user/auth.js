@@ -3,7 +3,7 @@ const router = express.Router();
 const authService = require('../../../services/user/auth');
 require('dotenv').config();
 const { status } = require("http-status");
-const validateMiddleware = require('../../../middlewares/middlewaresAmano');
+const {validateData} = require('../../../middlewares/middlewaresAmano');
 
 /**
  * @swagger
@@ -37,7 +37,7 @@ const validateMiddleware = require('../../../middlewares/middlewaresAmano');
  *         description: Error interno del servidor.
  */
 
-router.post("/register", validateMiddleware, async(req, res) =>{
+router.post("/register", validateData, async(req, res) =>{
     try {
         const user = await authService.register(req, res);
         return res.status(201).json(user);

@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors');
 const morgan = require('morgan');
-const { app } = require('../server');
+const { app } = require('../app');
 
 //Middleware Logger
 const logger = morgan('tiny');
