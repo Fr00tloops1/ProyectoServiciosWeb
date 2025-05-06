@@ -11,8 +11,6 @@ import { ApiUsuariosService } from '../../services/user/api.usuarios.service';
 })
 export class LoginComponent{
 
-
-  usuarios: any[] = [];
   constructor(private router: Router, private apiServices: ApiUsuariosService){ }
 
 

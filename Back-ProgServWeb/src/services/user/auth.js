@@ -5,7 +5,6 @@ require('dotenv').config();
 const process = require('process');
 const JWT = require('jsonwebtoken');
 
-
 const register  =  async (req, res) => {
     try {
       const { NameUser, semester, password } = req.body;

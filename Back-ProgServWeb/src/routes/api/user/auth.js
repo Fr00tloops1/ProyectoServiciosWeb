@@ -3,18 +3,20 @@ const router = express.Router();
 const authService = require('../../../services/user/auth');
 require('dotenv').config();
 const { status } = require("http-status");
-const validateMiddleware = require('../../../middlewares/middlewaresAmano');
+const validateMiddleware = require('../../../middlewares/validateUser');
+
 
 router.post("/register", validateMiddleware, async(req, res) =>{
     try {
         const user = await authService.register(req, res);
+
         return res.status(201).json(user);
       } catch (exception) {
         return res.status(500);
       }
 });
 
-router.put("/usuarios/:id", async (req, res) => {
+router.put("/usuarios/:id", validateMiddleware, async (req, res) => {
   try {
       const UserUpdated = await authService.UpdateUser(req, res);
       res

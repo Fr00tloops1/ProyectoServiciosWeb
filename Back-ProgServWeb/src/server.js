@@ -4,6 +4,11 @@ const routes = require('./routes/index');
 const middlewares_Prehechos = require('./middlewares/middlewaresPrehechos')
 const app = express()
 require('dotenv').config()
+const cors = require('cors');
+const morgan = require('morgan');
+
+//Middleware Logger
+const logger = morgan('tiny');
 
 //Variable que contiene el puerto del servidor:
 const PORT = process.env.PORT || 8001;
@@ -12,7 +17,9 @@ const PORT = process.env.PORT || 8001;
 const dbName = process.env.DB_NAME;
 
 //Uso de Middlewares
-middlewares_Prehechos(app);
+app.use(logger);
+app.use(cors({origin: 'http://localhost:4200'}));
+app.use(express.json());
 
 app.use(routes.unprotectedRoutes);
 sequelize.sync()
