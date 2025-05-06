@@ -15,7 +15,6 @@ const register  =  async (req, res) => {
       if (!NameUser || !semester || !password) {
         return res
           .status(status.BAD_REQUEST)
-          .json({ error: "Todos los campos son obligatorios." });
       }
   
   
