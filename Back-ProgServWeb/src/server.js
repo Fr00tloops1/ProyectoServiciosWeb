@@ -1,7 +1,7 @@
 const express = require('express');
 const sequelize = require('./config/database')
 const routes = require('./routes/index');
-const middlewares_Prehechos = require('./middlewares/middlewaresPrehechos')
+const sanitizeInput = require('./middlewares/SanitizeInput');
 const app = express()
 require('dotenv').config()
 const cors = require('cors');
@@ -20,6 +20,7 @@ const dbName = process.env.DB_NAME;
 app.use(logger);
 app.use(cors({origin: 'http://localhost:4200'}));
 app.use(express.json());
+app.use(sanitizeInput);
 
 app.use(routes.unprotectedRoutes);
 sequelize.sync()
