@@ -1,2 +1,230 @@
-<p>Bienvenido!</p>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>
+     Facebook Dark Mode Replica
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica&amp;display=swap" rel="stylesheet"/>
+    <style>
+     body {
+      font-family: 'Helvetica', sans-serif;
+    }
+    </style>
+   </head>
+   <body class="bg-[#18191a] text-[#e4e6eb]">
+    <main class="flex max-w-[1200px] mx-auto px-4 py-4 space-x-6">
+     <!-- Left Sidebar -->
+     <aside class="hidden md:flex flex-col space-y-5 w-60 text-[#e4e6eb]">
+      <div class="flex items-center space-x-3 cursor-pointer">
+       <img alt="Foto de perfil de usuario con fondo azul y dos personas a caballo" class="rounded-full w-9 h-9 object-cover" height="36" src="https://storage.googleapis.com/a1aa/image/eb311532-1746-4b3e-83df-236c31fcd077.jpg" width="36"/>
+       <span class="font-semibold text-sm">
+        Usuario
+       </span>
+      </div>
+      <div class="flex items-center space-x-3 cursor-pointer">
+       <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center">
+        <div class="w-6 h-6 rounded-full bg-black">
+        </div>
+       </div>
+       <span class="font-semibold text-sm">
+        Meta AI
+       </span>
+      </div>
+      <div class="flex items-center space-x-3 cursor-pointer">
+       <i class="fas fa-user-friends text-[#2d88ff] text-xl">
+       </i>
+       <span class="font-semibold text-sm">
+        Amigos
+       </span>
+      </div>
+      <div class="flex items-center space-x-3 cursor-pointer">
+       <i class="far fa-clock text-[#4a90e2] text-xl">
+       </i>
+       <span class="font-semibold text-sm">
+        Recuerdos
+       </span>
+      </div>
+      <div class="flex items-center space-x-3 cursor-pointer">
+       <i class="fas fa-bookmark text-[#b000b5] text-xl">
+       </i>
+       <span class="font-semibold text-sm">
+        Guardado
+       </span>
+      </div>
+      <div class="flex items-center space-x-3 cursor-pointer">
+       <i class="fas fa-users text-[#1877f2] text-xl">
+       </i>
+       <span class="font-semibold text-sm">
+        Grupos
+       </span>
+      </div>
+      <div class="flex items-center space-x-3 cursor-pointer">
+       <i class="fas fa-play-circle text-[#2d88ff] text-xl">
+       </i>
+       <span class="font-semibold text-sm">
+        Video
+       </span>
+      </div>
+      <div class="flex items-center space-x-3 cursor-pointer">
+       <i class="fas fa-store text-[#1877f2] text-xl">
+       </i>
+       <span class="font-semibold text-sm">
+        Marketplace
+       </span>
+      </div>
+  
+     </aside>
+     <!-- Center Content -->
+     <section class="flex-1 max-w-xl space-y-4">
+      <!-- Post input -->
+      <form  #myform="ngForm" (ngSubmit)="sendQuestion(myform)">
+      <div class="bg-[#242526] rounded-lg p-3 space-y-3">
+  
+       <div class="flex items-center space-x-3">
+        <img alt="Foto de perfil de usuario con fondo azul y dos personas a caballo" class="rounded-full w-9 h-9 object-cover" height="36" src="https://storage.googleapis.com/a1aa/image/eb311532-1746-4b3e-83df-236c31fcd077.jpg" width="36"/>
+        <input [(ngModel)]="contentField" #myinput="ngModel" required class="bg-[#3a3b3c] rounded-full flex-1 py-2 px-4 text-[#b0b3b8] placeholder-[#b0b3b8] focus:outline-none" placeholder="Haz una pregunta. Adelante" type="text"/>
+       </div>
+  
+       <div class="flex items-center space-x-3">
+        <input [(ngModel)]="teacherField" #myinput="ngModel" class="bg-[#3a3b3c] rounded-full flex-1 py-2 px-4 text-[#b0b3b8] placeholder-[#b0b3b8] focus:outline-none" placeholder="Ingresa el nombre profesor de la materia" type="text"/>
+       </div>
+  
+       <div class="flex items-center space-x-3">
+        <input [(ngModel)]="subjectField" #myinput="ngModel" class="bg-[#3a3b3c] rounded-full flex-1 py-2 px-4 text-[#b0b3b8] placeholder-[#b0b3b8] focus:outline-none" placeholder="Ingresa la materia" type="text"/>
+       </div>
+  
+       <div class="flex justify-between text-bg font-semibold text-[#b0b3b8]">
+        <button class="flex items-center space-x-2 hover:bg-[#b0b3b8] rounded-md px-3 py-1">
+         <span class="text-[#ffffff]">
+          Postear Pregunta
+         </span>
+        </button>
+       </div>
+      </div>
+    </form>
+      <!-- Post -->
+      <article class="bg-[#242526] rounded-lg p-3 max-w-xl">
+       <header class="flex items-center space-x-2 mb-2">
+        <img alt="Icono rojo con texto de venta y reparación de consolas y videojuegos" class="rounded w-8 h-8 object-cover" height="32" src="https://storage.googleapis.com/a1aa/image/beacc125-170d-4f95-74b4-6770fadd74db.jpg" width="32"/>
+        <span class="font-semibold text-[#d7dadc]">
+          usuario 1
+         </span>
+         <span>
+          • timestamp
+         </span>
+       </header>
+       <h2 class="text-white font-bold text-lg leading-6 mb-3">
+          Pregunta de otro usuario
+         </h2>
+      </article>
+  
+      <article class="bg-[#242526] rounded-lg p-3 max-w-xl">
+       <header class="flex items-center space-x-2 mb-2">
+        <img alt="Icono rojo con texto de venta y reparación de consolas y videojuegos" class="rounded w-8 h-8 object-cover" height="32" src="https://storage.googleapis.com/a1aa/image/beacc125-170d-4f95-74b4-6770fadd74db.jpg" width="32"/>
+        <span class="font-semibold text-[#d7dadc]">
+          usuario 2
+         </span>
+         <span>
+          • timestamp
+         </span>
+       </header>
+       <h2 class="text-white font-bold text-lg leading-6 mb-3">
+          Pregunta de otro usuario 2
+         </h2>
+      </article>
+  
+      <article class="bg-[#242526] rounded-lg p-3 max-w-xl">
+       <header class="flex items-center space-x-2 mb-2">
+        <img alt="Icono rojo con texto de venta y reparación de consolas y videojuegos" class="rounded w-8 h-8 object-cover" height="32" src="https://storage.googleapis.com/a1aa/image/beacc125-170d-4f95-74b4-6770fadd74db.jpg" width="32"/>
+        <span class="font-semibold text-[#d7dadc]">
+          usuario 2
+         </span>
+         <span>
+          • timestamp
+         </span>
+       </header>
+       <h2 class="text-white font-bold text-lg leading-6 mb-3">
+          Pregunta de otro usuario 3
+         </h2>
+      </article>
+     </section>
+       <hr class="border-[#3a3b3c] mt-4"/>
+      <div>
+       <h2 class="font-semibold text-[#e4e6eb] mb-2">
+        Contactos
+       </h2>
+       <div class="flex flex-col space-y-4">
+        <div class="flex items-center space-x-3 cursor-pointer">
+         <img alt="Foto de perfil de Ofelia Quinonez con punto verde de estado" class="rounded-full w-9 h-9 object-cover" height="36" src="https://storage.googleapis.com/a1aa/image/b4c29f9f-e6d6-4557-9e08-406d926353eb.jpg" width="36"/>
+         <span class="font-semibold text-sm text-white">
+          Ofelia Quinonez
+         </span>
+         <span class="w-3 h-3 bg-green-500 rounded-full">
+         </span>
+        </div>
+        <div class="flex items-center space-x-3 cursor-pointer">
+         <img alt="Foto de perfil de Reyes Herrera con punto verde de estado" class="rounded-full w-9 h-9 object-cover" height="36" src="https://storage.googleapis.com/a1aa/image/97e0fd8b-3a0d-453f-482e-f5a77472bfe9.jpg" width="36"/>
+         <span class="font-semibold text-sm text-white">
+          Reyes Herrera
+         </span>
+         <span class="w-3 h-3 bg-green-500 rounded-full">
+         </span>
+        </div>
+        <div class="flex items-center space-x-3 cursor-pointer">
+         <img alt="Foto de perfil de Maria Luisa Villalobos con punto verde de estado" class="rounded-full w-9 h-9 object-cover" height="36" src="https://storage.googleapis.com/a1aa/image/999369fe-0764-46a1-9711-697fd3a53b57.jpg" width="36"/>
+         <span class="font-semibold text-sm text-white">
+          Maria Luisa Villalobos
+         </span>
+         <span class="w-3 h-3 bg-green-500 rounded-full">
+         </span>
+        </div>
+        <div class="flex items-center space-x-3 cursor-pointer">
+         <img alt="Foto de perfil de Abraham Villa con punto verde de estado" class="rounded-full w-9 h-9 object-cover" height="36" src="https://storage.googleapis.com/a1aa/image/9dbbd05d-49d8-4e20-749a-40acd9bb7546.jpg" width="36"/>
+         <span class="font-semibold text-sm text-white">
+          Abraham Villa
+         </span>
+         <span class="w-3 h-3 bg-green-500 rounded-full">
+         </span>
+        </div>
+        <div class="flex items-center space-x-3 cursor-pointer">
+         <img alt="Foto de perfil de Pilar Luevano con punto verde de estado" class="rounded-full w-9 h-9 object-cover" height="36" src="https://storage.googleapis.com/a1aa/image/ae8ef574-6806-485d-b6cf-a7e95657a526.jpg" width="36"/>
+         <span class="font-semibold text-sm text-white">
+          Pilar Luevano
+         </span>
+         <span class="w-3 h-3 bg-green-500 rounded-full">
+         </span>
+        </div>
+        <div class="flex items-center space-x-3 cursor-pointer">
+         <img alt="Foto de perfil de Jose Alfredo Velador con punto verde de estado" class="rounded-full w-9 h-9 object-cover" height="36" src="https://storage.googleapis.com/a1aa/image/ff1b8b82-a96d-473b-117f-8574cafda278.jpg" width="36"/>
+         <span class="font-semibold text-sm text-white">
+          Jose Alfredo Velador
+         </span>
+         <span class="w-3 h-3 bg-green-500 rounded-full">
+         </span>
+        </div>
+        <div class="flex items-center space-x-3 cursor-pointer">
+         <img alt="Foto de perfil de Jared Campos con punto verde de estado" class="rounded-full w-9 h-9 object-cover" height="36" src="https://storage.googleapis.com/a1aa/image/681bbb65-0ae4-46f8-837f-f2e350fba827.jpg" width="36"/>
+         <span class="font-semibold text-sm text-white">
+          Jared Campos
+         </span>
+         <span class="w-3 h-3 bg-green-500 rounded-full">
+         </span>
+        </div>
+       </div>
+       <div class="flex items-center justify-between mt-3 text-[#b0b3b8]">
+        <button aria-label="Buscar contactos" class="hover:text-white">
+         <i class="fas fa-search">
+         </i>
+        </button>
+        <button aria-label="Más opciones contactos" class="hover:text-white">
+         <i class="fas fa-ellipsis-h">
+         </i>
+        </button>
+       </div>
+      </div>
+    </main>
+   </body>
 <button> <a routerLink="/Login" routerLinkActive="active"> regresar </a></button>

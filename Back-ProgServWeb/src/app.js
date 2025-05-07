@@ -2,7 +2,6 @@ const express = require('express');
 const sequelize = require('./config/database')
 const routes = require('./routes/index');
 const sanitizeInput = require('./middlewares/SanitizeInput');
-
 const cors = require('cors');
 const morgan = require('morgan');
 
@@ -21,6 +20,7 @@ app.use(logger);
 app.use(cors({origin: 'http://localhost:4200'}));
 app.use(express.json());
 app.use(sanitizeInput);
+
 // Rutas no protegidas
 app.use(routes.unprotectedRoutes);
 
