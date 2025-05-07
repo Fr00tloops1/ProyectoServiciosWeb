@@ -20,29 +20,25 @@
    <header class="flex justify-between items-center border-b border-gray-200 px-8 py-4">
     <div class="flex items-center space-x-2">
      <img class="w-8 h-8" height="32" src="/img/logochido.png" width="32"/>
-     <span class="text-[#0069FF] font-semibold text-lg select-none">
+     <span class="text-[#FFFFFF] font-semibold text-lg select-none">
       Ask-it
      </span>
     </div>
     <div class="flex items-center text-sm text-[#4B5563] font-semibold cursor-pointer select-none">
-     <i class="fas fa-globe-americas mr-1 text-[#6B7280]">
-     </i>
-     English
-     <i class="fas fa-chevron-down ml-1 text-[#6B7280]">
-     </i>
+     
     </div>
    </header>
    <main class="flex flex-col md:flex-row items-center justify-between px-8 py-12 gap-12 md:gap-24">
     <section class="max-w-md w-full">
-     <h1 class="text-4xl font-extrabold text-[#0B1C3F] leading-tight mb-3">
-      Welcome back
+     <h1 class="text-4xl font-extrabold text-[#FFFFFF] leading-tight mb-3">
+      Bienvenido de vuelta
       <br/>
-      to
+      a
       <span class="text-[#FFFFFF]">
        Ask-it
       </span>
      </h1>
-     <p class="text-[#6B7280] text-sm mb-8 leading-relaxed">
+     <p class="text-[#cce0df] text-sm mb-8 leading-relaxed">
       Inicia sesion o registrate para comenzar a hacer preguntas y ayudar a otros
      </p>
      <form class="flex flex-col space-y-3">
@@ -50,10 +46,6 @@
        Email Address
       </label>
       <div class="flex">
-       <input class="flex-grow border border-gray-300 rounded-l-md px-3 py-2 text-sm text-[#374151] focus:outline-none focus:ring-2 focus:ring-[#0069FF] focus:border-transparent" id="email" placeholder="Enter your email" type="email"/>
-       <button class="bg-[#0069FF] text-white px-5 py-2 rounded-r-md text-sm font-semibold hover:bg-[#0051cc] transition-colors" type="submit">
-        Log in
-       </button>
       </div>
      </form>
      <p class="text-xs text-[#0B1C3F] font-semibold mt-4 select-none">
@@ -74,17 +66,15 @@
         </svg>
       
         <div class="relative bg-[#0f1e2e] rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] w-[360px] pt-12 pb-10 px-8 flex flex-col items-center">
-          <div class="absolute top-2 left-1/2 -translate-x-1/2 text-[#4a5a6a] text-[10px] tracking-widest font-semibold select-none">
-            ENROLLMENT
-          </div>
+
           <div class="absolute top-4 right-4 w-6 h-2 rounded-full bg-[#4ad3c9]"></div>
           <div class="flex items-center space-x-2 mb-6">
-            <img alt="Freehands logo" class="w-6 h-6" src="https://storage.googleapis.com/a1aa/image/4cd30a2c-57dd-4359-3efd-a45dfde96600.jpg" />
-            <span class="text-[#4ad3c9] font-semibold text-xl select-none">freehands</span>
+            <img alt="logo" class="w-6 h-6" src="C:\Users\gateway\Documents\ask-it\API\Front-progservweb\src\assets\images\logoGenial.png" />
+            <span class="text-[#4ad3c9] font-semibold text-xl select-none">ask-it</span>
           </div>
-          <h1 class="text-white text-lg font-semibold mb-2 select-none">Welcome!</h1>
-          <p class="text-[#7a8a9a] text-center text-sm mb-6 select-none leading-relaxed max-w-[280px]">
-            Enter your name, semester and password to login.
+          <h1 class="text-white text-lg font-semibold mb-2 select-none">Bienvenido!</h1>
+          <p class="text-[#cce0df] text-center text-sm mb-6 select-none leading-relaxed max-w-[280px]">
+            Ingresa tu nombre y semestre para logearte.
           </p>
       
           <!-- Angular Form -->
@@ -95,7 +85,7 @@
               </span>
               <input type="text" name="name" [(ngModel)]="NameField" #myinput="ngModel" required
                 class="w-full bg-transparent border border-[#2a3a4a] rounded-md py-3 pl-10 pr-3 text-[#4a5a6a] placeholder-[#4a5a6a] text-sm focus:outline-none focus:ring-1 focus:ring-[#4ad3c9] focus:border-[#4ad3c9]"
-                placeholder="Name" />
+                placeholder="Nombre" />
             </div>
             <div class="relative">
               <span class="absolute inset-y-0 left-3 flex items-center text-[#4a5a6a] text-sm">
@@ -103,7 +93,7 @@
               </span>
               <input type="number" name="semester" [(ngModel)]="SemesterField" #myinput="ngModel" required
                 class="w-full bg-transparent border border-[#2a3a4a] rounded-md py-3 pl-10 pr-3 text-[#4a5a6a] placeholder-[#4a5a6a] text-sm focus:outline-none focus:ring-1 focus:ring-[#4ad3c9] focus:border-[#4ad3c9]"
-                placeholder="Semester" />
+                placeholder="Semestre" />
             </div>
             <div class="relative">
               <span class="absolute inset-y-0 left-3 flex items-center text-[#4a5a6a] text-sm">
@@ -111,7 +101,7 @@
               </span>
               <input type="password" name="password" [(ngModel)]="PasswordField" #myinput="ngModel" required
                 class="w-full bg-transparent border border-[#2a3a4a] rounded-md py-3 pl-10 pr-3 text-[#4a5a6a] placeholder-[#4a5a6a] text-sm focus:outline-none focus:ring-1 focus:ring-[#4ad3c9] focus:border-[#4ad3c9]"
-                placeholder="Password" />
+                placeholder="Contraseña" />
             </div>
             <button type="submit"
               class="w-full bg-gradient-to-r from-[#3cc9b9] to-[#2cc7c1] rounded-md py-3 text-white font-semibold text-sm flex items-center justify-center space-x-2 hover:brightness-110 transition">
