@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionsService } from '../../../services/questions/questions.service';
+import { QuestionService } from '../../../services/questions/questions.service';
 import { CommonModule } from '@angular/common';     // <--- Importar esto
 import { FormsModule } from '@angular/forms';  
 import { Router } from '@angular/router';

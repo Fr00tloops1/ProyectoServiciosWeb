@@ -2,20 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class QuestionsService {
-  private API_URL = 'http://localhost:8001';
+@Injectable({ providedIn: 'root' })
+export class QuestionService {
+  private apiUrl = 'http://localhost:8001/MostrarMisPreguntas';
 
   constructor(private http: HttpClient) {}
 
-  getPreguntasPorUsuario(userId: string): Observable<any>  {
-    return this.http.get(`${this.API_URL}/MostrarPreguntas/${userId}`);
+  getUserQuestions() {
+    const token = localStorage.getItem('token');
+    return this.http.get(this.apiUrl, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   }
-
-  postPregunta(pregunta: { userId: string, titulo: string }) {
-    return this.http.post(`${this.API_URL}/CrearPreguntas`, pregunta);
-  }
-  
 }

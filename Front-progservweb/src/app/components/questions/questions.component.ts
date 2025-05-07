@@ -1,16 +1,23 @@
-import { NgForm } from '@angular/forms';
-import { Component } from '@angular/core';
-import { QuestionsService } from '../../services/questions/questions.service';
+import { Component, OnInit } from '@angular/core';
+import { QuestionService } from '../../services/questions/questions.service';
 
 @Component({
-  selector: 'app-questions',
-  standalone: false,
-  templateUrl: './questions.component.html',
-  styleUrl: './questions.component.css'
+  selector: 'app-user-questions',
+  templateUrl: './user-questions.component.html'
 })
-export class QuestionsComponent {
-  constructor (private ApiService: QuestionsService){ }
+export class UserQuestionsComponent implements OnInit {
+  questions: any[] = [];
 
-  
-  
+  constructor(private questionService: QuestionService) {}
+
+  ngOnInit() {
+    this.questionService.getUserQuestions().subscribe(
+      (res: any) => {
+        this.questions = res;
+      },
+      err => {
+        console.error('Error al cargar preguntas', err);
+      }
+    );
+  }
 }

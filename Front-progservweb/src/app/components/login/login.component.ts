@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiUsuariosService } from '../../services/user/api.usuarios.service';
-
+import { CommonModule } from '@angular/common';     // <--- Importar es
+import { FormsModule } from '@angular/forms'; 
 @Component({
   selector: 'app-login',
   standalone: false,

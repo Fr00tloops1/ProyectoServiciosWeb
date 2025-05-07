@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/Home-Page/home/home.component';
 import { UserComponent } from './components/User-Page/user/user.component';
 import { ModificarComponent } from './components/User-Page/modificar/modificar.component';
-import { QuestionsComponent } from './components/questions/questions.component';
+import { QuestionComponent } from './components/questions/questions.component';
 import { CommentsComponent } from './components/comments/comments.component';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { CommentsComponent } from './components/comments/comments.component';
     LoginComponent,
     UserComponent,
     ModificarComponent,
-    QuestionsComponent,
+    QuestionComponent,
     CommentsComponent
   ],
   imports: [
