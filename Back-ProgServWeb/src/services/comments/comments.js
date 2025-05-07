@@ -5,12 +5,15 @@ const { status } = require('http-status');
 // Crear comentario
 const createComment = async (req, res) => {
     try {
-        const { answersqID, myAnswersID, comment } = req.body;
+        const asnwersqID = req.params;
+        const {id} = req.user;
+        const userID = id;
+        const {comment } = req.body;
         if (!answersqID || !myAnswersID || !comment) {
             return res.status(status.BAD_REQUEST).json({ error: "Todos los campos son obligatorios." });
         }
 
-        const newComment = await CommentModel.create({ answersqID, myAnswersID, comment });
+        const newComment = await CommentModel.create({ answersqID,userID,comment });
 
         return res.json({
             mensaje: "Comentario creado",
@@ -32,7 +35,7 @@ const updateComment = async (req, res) => {
         if (!commentToUpdate) {
             return res.status(status.NOT_FOUND).json({ error: "Comentario no encontrado" });
         }
-
+        if (CommentModel.userID !== req.user.id) return res.status(403).json({ error: "No autorizado" });
         await commentToUpdate.update({ comment }, { where: { id } });
 
         return res.json({
@@ -65,11 +68,11 @@ const deleteComment = async (req, res) => {
     }
 };
 
-// Obtener todos los comentarios
+// Obtener todos los comentarios de una pregunta
 const getComments = async (req, res) => {
     try {
-        const allComments = await CommentModel.findAll(); 
-
+        const answersqID = req.params;
+        const allComments = await CommentModel.findAll({ where: { answersqID} }); 
         if (allComments.length === 0) {
             return res.status(status.NOT_FOUND).json({ error: "No hay comentarios" });
         }

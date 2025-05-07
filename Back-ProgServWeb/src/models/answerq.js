@@ -18,10 +18,6 @@ answerq.init(
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        valoration: {
-            type: DataTypes.TINYINT,
-            allowNull: true
-        },
         userID: {
             type: DataTypes.INTEGER,
             allowNull: false,

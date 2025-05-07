@@ -157,4 +157,14 @@ router.put("/EditarPregunta/:id", async(req, res) =>{
     }
 });
 
+router.get("/MostrarMisPreguntas", async(req, res) =>{
+    try{
+        const question = await questionService.questionUser(req, res);
+        return res.status(201).json(question);
+    }
+    catch(exception){
+        return res.status(500)
+    }
+});
+
 module.exports = router;

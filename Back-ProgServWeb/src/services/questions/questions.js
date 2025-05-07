@@ -65,7 +65,7 @@ const questionUser = async (req,res) =>{
           {
             model: User,
             as: 'user',
-            attributes: ['id', 'name']
+            attributes: ['id', 'NameUser']
           }
         ],
         order: [['createdAt', 'DESC']]
@@ -79,7 +79,7 @@ const deleteQ = async (req, res) => {
         const { id } = req.params;
         const question = await questionModel.findOne({ where: { id } });
         
-        if (!usuario) {
+        if (!question) {
         return res 
         .status(status.NOT_FOUND)
         .json({ error: "La pregunta no existe"});
@@ -93,4 +93,11 @@ const deleteQ = async (req, res) => {
             return exception.message;
           }
 }
+
+const getMyQuestions = async (req, res) => {
+    const {id} = req.user;
+    const userID = id;
+    const questions = await Question.findAll({ where: { userID } });
+    res.json(questions);
+  };
 module.exports = {createQ, readQ, updateQ, deleteQ,questionUser}

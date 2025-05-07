@@ -40,6 +40,7 @@ const CrearRespuesta = async (req, res) => {
         if (!respuestaEdit) {
         return res .status(status.NOT_FOUND).json({ error: "Respuesta no encontrada"});
         }
+        
         await respuestaEdit.update({ content } );
         return res
         .status(status.OK)
@@ -71,7 +72,49 @@ const CrearRespuesta = async (req, res) => {
   };
 
 
+  const GetAllAnsQ = async (req, res) => {
+    try {
+        const questionID = req.params;
+        const answers = await AnswersModel.findAll({ where: { questionID } });
+        
+        if (!answers) {
+        return res .status(status.NOT_FOUND).json({ error: "Respuestas no encontradas"});
+        }
+        return res
+        .json({
+            mensaje: "Usuario borrado con exito",
+            user: { answers },
+          });
+          
+    } catch (exception) {
+        return exception.message;
+      }
+  };
+
+  const myanswers = async (req, res) => {
+    try {
+        const {id} = req.user;
+        const userID = id;
+        const answers = await AnswersModel.findAll({ where: { userID } });
+        
+        if (!answers) {
+        return res .status(status.NOT_FOUND).json({ error: "Respuestas no encontradas"});
+        }
+        return res
+        .json({
+            mensaje: "Usuario borrado con exito",
+            user: { answers },
+          });
+          
+    } catch (exception) {
+        return exception.message;
+      }
+  };
+
+
+
+
   
  
   
-  module.exports = { UpdateAnswer , CrearRespuesta , DeleteAns};
+  module.exports = { UpdateAnswer , CrearRespuesta , DeleteAns, GetAllAnsQ,myanswers};
