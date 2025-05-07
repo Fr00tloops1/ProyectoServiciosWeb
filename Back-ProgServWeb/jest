@@ -1,0 +1,215 @@
+
+  console.log
+    Error al conectar a la Base de Datos: progservweb_test
+
+      at log (src/config/database.js:16:26)
+
+ FAIL  src/__tests__/auth.test.js
+  Auth Service
+    ✕ should register a new user successfully
+    ✕ should login successfully (1 ms)
+
+  ● Auth Service › should register a new user successfully
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Auth Service › should login successfully
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  console.log
+    Error al conectar a la Base de Datos: progservweb_test
+
+      at log (src/config/database.js:16:26)
+
+ FAIL  src/__tests__/questions.test.js
+  Questions Service
+    ✕ should create a question successfully
+    ✕ should get all questions
+    ✕ should get questions by user
+    ✕ should update a question
+    ✕ should delete a question
+
+  ● Questions Service › should create a question successfully
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Questions Service › should get all questions
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Questions Service › should get questions by user
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Questions Service › should update a question
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Questions Service › should delete a question
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  console.log
+    Error al conectar a la Base de Datos: progservweb_test
+
+      at log (src/config/database.js:16:26)
+
+ FAIL  src/__tests__/answers.test.js
+  Answers Service
+    ✕ should create an answer successfully (1 ms)
+    ✕ should get all answers
+    ✕ should get answers by question ID
+    ✕ should update an answer
+    ✕ should delete an answer
+
+  ● Answers Service › should create an answer successfully
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Answers Service › should get all answers
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Answers Service › should get answers by question ID
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Answers Service › should update an answer
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Answers Service › should delete an answer
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  console.log
+    Error al conectar a la Base de Datos: progservweb_test
+
+      at log (src/config/database.js:16:26)
+
+ FAIL  src/__tests__/comments.test.js
+  Comments Service
+    ✕ should create a comment successfully
+    ✕ should get all comments
+    ✕ should update a comment
+    ✕ should delete a comment
+
+  ● Comments Service › should create a comment successfully
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Comments Service › should get all comments
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Comments Service › should update a comment
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+  ● Comments Service › should delete a comment
+
+    SequelizeConnectionError: Unknown database 'progservweb_test'
+
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:12
+      at ConnectionManager.connect (node_modules/sequelize/src/dialects/mysql/connection-manager.js:126:17)
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.j
+      at ConnectionManager._connect (node_modules/sequelize/src/dialects/abstract/connection-manager.js:332:24)
+      at node_modules/sequelize/src/dialects/abstract/connection-manager.js:250:32
+
+Test Suites: 4 failed, 4 total
+Tests:       16 failed, 16 total
+Snapshots:   0 total
+Time:        0.887 s, estimated 1 s
+Ran all test suites.
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that ke

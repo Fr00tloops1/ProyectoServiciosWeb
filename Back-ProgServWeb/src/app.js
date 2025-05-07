@@ -29,20 +29,38 @@ app.use(sanitizeInput);
 app.use(helmet());
 const rateLimit = require('express-rate-limit');
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutos
+  windowMs: 15 * 60 * 1000, 
   max: 100
 });
 app.use(limiter);
-// Rutas no protegidas
+
+// Rutas públicas
 app.use(routes.unprotectedRoutes);
 
 // Configuración de Swagger UI
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
+// Rutas protegidas
+app.use('/api', routes.protectedRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        mensaje: 'Error interno del servidor',
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
+});
+
+// Sincronizar la base de datos solo si no estamos en modo test
 if (process.env.NODE_ENV !== 'test') {
-    sequelize.sync()
-        .then(() => console.log(`La Base de Datos ${process.env.DB_NAME} esta lista para usarse`))
-        .catch(err => console.log(err));
+    sequelize.sync({ alter: true })
+        .then(() => {
+            console.log('Base de datos sincronizada');
+        })
+        .catch(err => {
+            console.error('Error al sincronizar la base de datos:', err);
+        });
 }
 
 module.exports = app;
