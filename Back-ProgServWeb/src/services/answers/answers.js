@@ -6,115 +6,123 @@ const JWT = require('jsonwebtoken');
 
 const CrearRespuesta = async (req, res) => {
     try {
-    
-      const { content } = req.body;
-      const {id} = req.user;
-      const userID = id;
-      if (!content) {
+        const { content, questionId } = req.body;
+        const { id } = req.user;
+        const userID = id;
+
+        if (!content || !questionId) {
+            return res
+                .status(status.BAD_REQUEST)
+                .json({ error: "El contenido y el ID de la pregunta son requeridos" });
+        }
+
+        const answer = await AnswersModel.create({ userID, content, questionId });
         return res
-          .status(status.BAD_REQUEST)
-          .json({ error: "Respuesta vacia." });
-      }
-  
-      AnswersModel.create({ userID,content });
-  
-      return res.json({
-        mensaje: "Respuesta creada",
-      });
+            .status(status.CREATED)
+            .json({
+                mensaje: "Respuesta creada exitosamente",
+                respuesta: answer
+            });
     } catch (exception) {
-      return exception.message;
+        return res
+            .status(status.INTERNAL_SERVER_ERROR)
+            .json({ error: exception.message });
     }
-  };
-  
-  //actualizar respuesta
-  
-  const UpdateAnswer = async (req, res) => {
-  
+};
+
+const UpdateAnswer = async (req, res) => {
     const { id } = req.params;
     const { content } = req.body;
-  
-  
+
     try {
-        const respuestaEdit = await myanswersModel.findOne({ where: { id } });
-  
+        const respuestaEdit = await AnswersModel.findOne({ where: { id } });
+
         if (!respuestaEdit) {
-        return res .status(status.NOT_FOUND).json({ error: "Respuesta no encontrada"});
+            return res
+                .status(status.NOT_FOUND)
+                .json({ error: "Respuesta no encontrada" });
         }
-        
-        await respuestaEdit.update({ content } );
+
+        await respuestaEdit.update({ content });
         return res
-        .status(status.OK)
-        .json({ message: "respuesta actualizado", respuesta: respuestaEdit });
+            .status(status.OK)
+            .json({
+                mensaje: "Respuesta actualizada exitosamente",
+                respuesta: respuestaEdit
+            });
     } catch (exception) {
-        return exception.message;
-      }
-  };
-  
-  
-  const DeleteAns = async (req, res) => {
+        return res
+            .status(status.INTERNAL_SERVER_ERROR)
+            .json({ error: exception.message });
+    }
+};
+
+const DeleteAns = async (req, res) => {
     try {
         const { id } = req.params;
         const answer = await AnswersModel.findOne({ where: { id } });
-        
+
         if (!answer) {
-        return res .status(status.NOT_FOUND).json({ error: "Respuesta no encontrado"});
+            return res
+                .status(status.NOT_FOUND)
+                .json({ error: "Respuesta no encontrada" });
         }
-        await answer.destroy()
+
+        await answer.destroy();
         return res
-        .json({
-            mensaje: "Usuario borrado con exito",
-            user: { usuario },
-          });
-          
+            .status(status.NO_CONTENT)
+            .send();
     } catch (exception) {
-        return exception.message;
-      }
-  };
+        return res
+            .status(status.INTERNAL_SERVER_ERROR)
+            .json({ error: exception.message });
+    }
+};
 
-
-  const GetAllAnsQ = async (req, res) => {
+const GetUserAnswers = async (req, res) => {
     try {
-        const questionID = req.params;
-        const answers = await AnswersModel.findAll({ where: { questionID } });
-        
-        if (!answers) {
-        return res .status(status.NOT_FOUND).json({ error: "Respuestas no encontradas"});
-        }
-        return res
-        .json({
-            mensaje: "Usuario borrado con exito",
-            user: { answers },
-          });
-          
-    } catch (exception) {
-        return exception.message;
-      }
-  };
+        const { id } = req.user;
+        const answers = await AnswersModel.findAll({
+            where: { userID: id },
+            order: [['createdAt', 'DESC']]
+        });
 
-  const myanswers = async (req, res) => {
+        return res
+            .status(status.OK)
+            .json({
+                respuestas: answers
+            });
+    } catch (exception) {
+        return res
+            .status(status.INTERNAL_SERVER_ERROR)
+            .json({ error: exception.message });
+    }
+};
+
+const GetAllAnswersByQuestion = async (req, res) => {
     try {
-        const {id} = req.user;
-        const userID = id;
-        const answers = await AnswersModel.findAll({ where: { userID } });
-        
-        if (!answers) {
-        return res .status(status.NOT_FOUND).json({ error: "Respuestas no encontradas"});
-        }
+        const { questionId } = req.params;
+        const answers = await AnswersModel.findAll({
+            where: { questionId },
+            order: [['createdAt', 'DESC']]
+        });
+
         return res
-        .json({
-            mensaje: "Usuario borrado con exito",
-            user: { answers },
-          });
-          
+            .status(status.OK)
+            .json({
+                respuestas: answers
+            });
     } catch (exception) {
-        return exception.message;
-      }
-  };
+        return res
+            .status(status.INTERNAL_SERVER_ERROR)
+            .json({ error: exception.message });
+    }
+};
 
-
-
-
-  
- 
-  
-  module.exports = { UpdateAnswer , CrearRespuesta , DeleteAns, GetAllAnsQ,myanswers};
+module.exports = {
+    CrearRespuesta,
+    UpdateAnswer,
+    DeleteAns,
+    GetUserAnswers,
+    GetAllAnswersByQuestion
+};

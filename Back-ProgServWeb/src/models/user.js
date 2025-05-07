@@ -10,11 +10,11 @@ User.init(
             allowNull: true,
             autoIncrement: true
         },
-        NameUser: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
-            
+            field: 'name'
         },
         semester: {
             type: DataTypes.TINYINT,
@@ -31,7 +31,5 @@ User.init(
         sequelize,
     }
 );
-
-
 
 module.exports = User;

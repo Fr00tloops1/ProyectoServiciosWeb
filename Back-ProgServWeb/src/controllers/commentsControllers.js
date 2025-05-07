@@ -1,26 +1,55 @@
 const { matchedData } = require('express-validator');
 const commentsService = require('../services/comments/comments');
-class commentsControllers {
 
-    async createComment(req, res) {
-        const data = matchedData(req);
-        const comment = await commentsService.createComment(req, res);
-        return res.status(201).json(comment);
+const createComment = async (req, res) => {
+    try {
+        const result = await commentsService.createComment(req, res);
+        return result;
+    } catch (error) {
+        return res.status(500).json({ mensaje: 'Error al crear el comentario', error: error.message });
     }
+};
 
-    async getComments(req, res) {
-        const comments = await commentsService.getComments(req, res);
-        return res.status(200).json(comments);
+const updateComment = async (req, res) => {
+    try {
+        const result = await commentsService.updateComment(req, res);
+        return result;
+    } catch (error) {
+        return res.status(500).json({ mensaje: 'Error al actualizar el comentario', error: error.message });
     }
-    async updateComment(req, res) {
-        const data = matchedData(req);
-        const comment = await commentsService.updateComment(req, res);
-        return res.status(200).json(comment);
-    }
-    async deleteComment(req, res) {
-        const comment = await commentsService.deleteComment(req, res);
-        return res.status(200).json(comment);
-    }
+};
 
-}
-module.exports = commentsControllers;
+const getAllComments = async (req, res) => {
+    try {
+        const result = await commentsService.getComments(req, res);
+        return result;
+    } catch (error) {
+        return res.status(500).json({ mensaje: 'Error al obtener los comentarios', error: error.message });
+    }
+};
+
+const getCommentById = async (req, res) => {
+    try {
+        const result = await commentsService.getCommentById(req, res);
+        return result;
+    } catch (error) {
+        return res.status(500).json({ mensaje: 'Error al obtener el comentario', error: error.message });
+    }
+};
+
+const deleteComment = async (req, res) => {
+    try {
+        const result = await commentsService.deleteComment(req, res);
+        return result;
+    } catch (error) {
+        return res.status(500).json({ mensaje: 'Error al eliminar el comentario', error: error.message });
+    }
+};
+
+module.exports = {
+    createComment,
+    updateComment,
+    getAllComments,
+    getCommentById,
+    deleteComment
+};

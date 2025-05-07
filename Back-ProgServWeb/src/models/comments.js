@@ -1,13 +1,15 @@
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/database');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
+const answersq = require("./answerq");
 
-class Comments extends Model {}
-Comments.init(
+class Comment extends Model {}
+
+Comment.init(
     {
         id: {
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            type: DataTypes.INTEGER
         },
         answersqID: {
             type: DataTypes.INTEGER,
@@ -16,29 +18,24 @@ Comments.init(
                 model: 'answersq',
                 key: 'id'
             }
-            
         },
         comment: {
-            type: DataTypes.STRING(140),
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         userID: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references: {
-                model: 'User',
-                key: 'id'
-            }
         }
     },
     {
         sequelize,
-        modelName: 'Comments',
-        tableName: 'comments',
-        timestamps: true
-
+        modelName: "Comment",
+        tableName: "comments",
+        timestamps: true,
     }
 );
 
+Comment.belongsTo(answersq, { foreignKey: 'answersqID' });
 
-module.exports = Comments;
+module.exports = Comment;

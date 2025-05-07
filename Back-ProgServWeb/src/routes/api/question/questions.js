@@ -1,170 +1,181 @@
 const express = require('express');
 const router = express.Router();
-const questionService = require('../../../services/questions/questions');
-const { status } = require('http-status');
+const questionController = require('../../../controllers/questionControllers');
 const verifyToken = require('../../../middlewares/auth');
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Question:
+ *       type: object
+ *       required:
+ *         - title
+ *         - content
+ *         - userId
+ *       properties:
+ *         title:
+ *           type: string
+ *           description: Título de la pregunta
+ *         content:
+ *           type: string
+ *           description: Contenido de la pregunta
+ *         userId:
+ *           type: string
+ *           description: ID del usuario que crea la pregunta
+ */
 
 /**
  * @swagger
  * tags:
  *   name: Questions
- *   description: Endpoints para la gestión de preguntas
+ *   description: API de gestión de preguntas
  */
 
 /**
  * @swagger
  * /CrearPreguntas:
  *   post:
- *     summary: Crear una nueva pregunta.
- *     description: Este endpoint permite crear una nueva pregunta proporcionando el contenido, el tema y el nombre del profesor.
+ *     summary: Crear una nueva pregunta
  *     tags: [Questions]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               content:
- *                 type: string
- *                 example: "¿Cuál es la capital de Francia?"
- *               subject:
- *                 type: string
- *                 example: "Geografía"
- *               teacher:
- *                 type: string
- *                 example: "Profesor Pérez"
+ *             $ref: '#/components/schemas/Question'
  *     responses:
  *       201:
- *         description: Pregunta creada con éxito.
- *       400:
- *         description: Faltan campos requeridos (content, subject, teacher).
+ *         description: Pregunta creada exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensaje:
+ *                   type: string
+ *                 pregunta:
+ *                   $ref: '#/components/schemas/Question'
+ *       401:
+ *         description: No autorizado
  *       500:
- *         description: Error interno del servidor.
+ *         description: Error del servidor
  */
-router.post("/CrearPreguntas",verifyToken,async(req,res) =>{
-    try{
-        const question = await questionService.createQ(req,res);
-        return res.status(201).json(question);
-    }
-    catch(exception){
-        return res.status(500);
-    }
-});
+router.post('/CrearPreguntas', verifyToken, questionController.createQuestion);
 
 /**
  * @swagger
  * /MostrarPreguntas:
  *   get:
- *     summary: Obtener todas las preguntas.
- *     description: Este endpoint permite obtener todas las preguntas almacenadas en el sistema.
+ *     summary: Obtener todas las preguntas
  *     tags: [Questions]
  *     responses:
  *       200:
- *         description: Lista de preguntas obtenida con éxito.
- *       404:
- *         description: No se encontraron preguntas en la base de datos.
+ *         description: Lista de preguntas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 preguntas:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Question'
  *       500:
- *         description: Error interno del servidor.
+ *         description: Error del servidor
  */
-router.get("/MostrarPreguntas", async(req, res) =>{
-    try{
-        const question = await questionService.readQ(req, res);
-        return res.status(201).json(question);
-    }
-    catch(exception){
-        return res.status(500)
-    }
-});
+router.get('/MostrarPreguntas', questionController.getQuestions);
+
+/**
+ * @swagger
+ * /MostrarMisPreguntas:
+ *   get:
+ *     summary: Obtener las preguntas del usuario autenticado
+ *     tags: [Questions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de preguntas del usuario
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 preguntas:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Question'
+ *       401:
+ *         description: No autorizado
+ *       500:
+ *         description: Error del servidor
+ */
+router.get('/MostrarMisPreguntas', verifyToken, questionController.getUserQuestions);
 
 /**
  * @swagger
  * /EliminarPregunta/{id}:
  *   delete:
- *     summary: Eliminar una pregunta por su ID.
- *     description: Este endpoint permite eliminar una pregunta proporcionando su ID. 
+ *     summary: Eliminar una pregunta
  *     tags: [Questions]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID único de la pregunta a eliminar.
  *     responses:
- *       200:
- *         description: Pregunta eliminada con éxito.
- *       404:
- *         description: La pregunta con el ID proporcionado no existe.
+ *       204:
+ *         description: Pregunta eliminada
+ *       401:
+ *         description: No autorizado
  *       500:
- *         description: Error interno del servidor.
+ *         description: Error del servidor
  */
-router.delete("/EliminarPregunta/:id", async(req, res) =>{
-    try{
-        const question = await questionService.deleteQ(req, res);
-        return res.status(201).json(question);
-    }
-    catch(exception){
-        return res.status(500)
-    }
-});
+router.delete('/EliminarPregunta/:id', verifyToken, questionController.deleteQuestion);
 
 /**
  * @swagger
  * /EditarPregunta/{id}:
  *   put:
- *     summary: Actualizar una pregunta por su ID.
- *     description: Este endpoint permite actualizar una pregunta proporcionada su ID. Se puede modificar el contenido, el tema y el nombre del profesor.
+ *     summary: Actualizar una pregunta
  *     tags: [Questions]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID único de la pregunta a actualizar.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               content:
- *                 type: string
- *                 example: "¿Qué es la fotosíntesis?"
- *               subject:
- *                 type: string
- *                 example: "Biología"
- *               teacher:
- *                 type: string
- *                 example: "Profesor Gómez"
+ *             $ref: '#/components/schemas/Question'
  *     responses:
  *       200:
- *         description: Pregunta actualizada con éxito.
- *       404:
- *         description: No se encontró la pregunta con el ID proporcionado.
+ *         description: Pregunta actualizada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensaje:
+ *                   type: string
+ *                 pregunta:
+ *                   $ref: '#/components/schemas/Question'
+ *       401:
+ *         description: No autorizado
  *       500:
- *         description: Error interno del servidor.
+ *         description: Error del servidor
  */
-router.put("/EditarPregunta/:id", async(req, res) =>{
-    try{
-        const question = await questionService.updateQ(req, res);
-        return res.status(201).json(question);
-    }
-    catch(exception){
-        return res.status(500)
-    }
-});
-
-router.get("/MostrarMisPreguntas", async(req, res) =>{
-    try{
-        const question = await questionService.questionUser(req, res);
-        return res.status(201).json(question);
-    }
-    catch(exception){
-        return res.status(500)
-    }
-});
+router.put('/EditarPregunta/:id', verifyToken, questionController.updateQuestion);
 
 module.exports = router;

@@ -4,108 +4,134 @@ const authController = require('../../../controllers/userControllers');
 const ValidateFields = require('../../../middlewares/validateFields');
 const validateFields = require('../../../middlewares/validateFields');
 const verifyToken = require('../../../middlewares/auth');
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ * 
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - name
+ *         - semester
+ *         - password
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: Nombre del usuario
+ *         semester:
+ *           type: integer
+ *           minimum: 1
+ *           maximum: 9
+ *           description: Semestre del usuario (1-9)
+ *         password:
+ *           type: string
+ *           description: Contraseña del usuario
+ * 
+ *     Login:
+ *       type: object
+ *       required:
+ *         - name
+ *         - semester
+ *         - password
+ *       properties:
+ *         name:
+ *           type: string
+ *         semester:
+ *           type: integer
+ *           minimum: 1
+ *           maximum: 9
+ *         password:
+ *           type: string
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: API de autenticación y gestión de usuarios
+ */
+
 /**
  * @swagger
  * /register:
  *   post:
- *     summary: Registrar un nuevo usuario.
- *     description: Registra un nuevo usuario después de validar los datos.
+ *     summary: Registrar un nuevo usuario
  *     tags: [Auth]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               NameUser:
- *                 type: string
- *               semester:
- *                 type: string
- *               password:
- *                 type: string
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       201:
- *         description: Usuario registrado exitosamente.
+ *         description: Usuario registrado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensaje:
+ *                   type: string
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
  *       400:
- *         description: Datos inválidos.
+ *         description: Datos inválidos
  *       500:
- *         description: Error interno del servidor.
+ *         description: Error del servidor
  */
 router.post('/register', validateFields, authController.register);
 
 /**
  * @swagger
- * /usuarios/{id}:
- *   put:
- *     summary: Actualizar información de un usuario por ID.
+ * /LogIn:
+ *   post:
+ *     summary: Iniciar sesión
  *     tags: [Auth]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               NameUser:
- *                 type: string
- *               semester:
- *                 type: string
- *               password:
- *                 type: string
+ *             $ref: '#/components/schemas/Login'
  *     responses:
  *       200:
- *         description: Usuario actualizado.
+ *         description: Inicio de sesión exitoso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     semester:
+ *                       type: integer
+ *                 token:
+ *                   type: string
+ *       401:
+ *         description: Credenciales inválidas
  *       500:
- *         description: Error del servidor.
+ *         description: Error del servidor
  */
-router.put('/usuarios/:id', ValidateFields, authController.updateUser);
-
-/**
- * @swagger
- * /obtener:
- *   get:
- *     summary: Obtener todos los usuarios registrados.
- *     tags: [Auth]
- *     responses:
- *       200:
- *         description: Lista de usuarios.
- *       500:
- *         description: Error del servidor.
- */
-router.get('/obtener', authController.getUsers);
-
-/**
- * @swagger
- * /borrar/{id}:
- *   delete:
- *     summary: Eliminar un usuario por su ID.
- *     tags: [Auth]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       204:
- *         description: Usuario eliminado.
- *       404:
- *         description: Usuario no encontrado.
- */
-router.delete('/borrar/:id', authController.deleteUser);
+router.post('/LogIn', authController.login);
 
 /**
  * @swagger
  * /LogOut/{id}:
  *   get:
- *     summary: Cerrar sesión de un usuario.
+ *     summary: Cerrar sesión
  *     tags: [Auth]
  *     parameters:
  *       - in: path
@@ -115,37 +141,93 @@ router.delete('/borrar/:id', authController.deleteUser);
  *           type: string
  *     responses:
  *       200:
- *         description: Sesión cerrada.
+ *         description: Sesión cerrada exitosamente
  *       500:
- *         description: Error del servidor.
+ *         description: Error del servidor
  */
 router.get('/LogOut/:id', authController.logout);
 
 /**
  * @swagger
- * /LogIn:
- *   post:
- *     summary: Iniciar sesión.
+ * /usuarios/{id}:
+ *   put:
+ *     summary: Actualizar usuario
  *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               NameUser:
- *                 type: string
- *               semester:
- *                 type: string
- *               password:
- *                 type: string
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
- *         description: Inicio de sesión exitoso.
+ *         description: Usuario actualizado
+ *       401:
+ *         description: No autorizado
  *       500:
- *         description: Error del servidor.
+ *         description: Error del servidor
  */
-router.post('/LogIn', authController.login);
+router.put('/usuarios/:id', verifyToken, ValidateFields, authController.updateUser);
+
+/**
+ * @swagger
+ * /obtener:
+ *   get:
+ *     summary: Obtener todos los usuarios
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de usuarios
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensaje:
+ *                   type: string
+ *                 user:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/User'
+ *       401:
+ *         description: No autorizado
+ *       500:
+ *         description: Error del servidor
+ */
+router.get('/obtener', verifyToken, authController.getUsers);
+
+/**
+ * @swagger
+ * /usuarios/{id}:
+ *   delete:
+ *     summary: Eliminar usuario
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Usuario eliminado
+ *       401:
+ *         description: No autorizado
+ *       500:
+ *         description: Error del servidor
+ */
+router.delete('/usuarios/:id', verifyToken, authController.deleteUser);
 
 module.exports = router;

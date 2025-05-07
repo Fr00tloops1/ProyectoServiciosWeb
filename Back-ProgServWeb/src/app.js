@@ -39,7 +39,6 @@ app.use(routes.unprotectedRoutes);
 // Configuración de Swagger UI
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
-
 if (process.env.NODE_ENV !== 'test') {
     sequelize.sync()
         .then(() => console.log(`La Base de Datos ${process.env.DB_NAME} esta lista para usarse`))
