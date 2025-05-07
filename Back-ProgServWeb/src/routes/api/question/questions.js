@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const questionService = require('../../../services/questions/questions');
 const { status } = require('http-status');
+const verifyToken = require('../../../middlewares/auth');
 
 /**
  * @swagger
@@ -41,7 +42,7 @@ const { status } = require('http-status');
  *       500:
  *         description: Error interno del servidor.
  */
-router.post("/CrearPreguntas", async(req,res) =>{
+router.post("/CrearPreguntas",verifyToken,async(req,res) =>{
     try{
         const question = await questionService.createQ(req,res);
         return res.status(201).json(question);
@@ -149,6 +150,16 @@ router.delete("/EliminarPregunta/:id", async(req, res) =>{
 router.put("/EditarPregunta/:id", async(req, res) =>{
     try{
         const question = await questionService.updateQ(req, res);
+        return res.status(201).json(question);
+    }
+    catch(exception){
+        return res.status(500)
+    }
+});
+
+router.get("/MostrarMisPreguntas", async(req, res) =>{
+    try{
+        const question = await questionService.questionUser(req, res);
         return res.status(201).json(question);
     }
     catch(exception){

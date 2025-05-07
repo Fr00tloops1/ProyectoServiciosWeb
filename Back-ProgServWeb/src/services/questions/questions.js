@@ -5,12 +5,14 @@ const {status} = require('http-status');
 const createQ = async (req, res) => {
     try{
         const {content, subject, teacher} = req.body;
+        const {id} = req.user;
+        const userID= id;
         if (!content ||!teacher || !subject){
             return res
             .status(status.BAD_REQUEST)
             .json({error: "Uno de los campos requeridos esta vacio"});
         }
-        questionModel.create({content, subject, teacher});
+        questionModel.create({userID,content, subject, teacher});
         return res
         .json({mensaje: "La pregunta se ha creado con exito"});
     }
@@ -55,13 +57,29 @@ const updateQ = async (req, res) => {
         return exception.message;
     }
 }
+
+const questionUser = async (req,res) =>{
+    const preguntasUsuario = await Question.findAll({
+        where: { userID: req.user.id },
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'NameUser']
+          }
+        ],
+        order: [['createdAt', 'DESC']]
+      });
+  return res 
+  .json({data: preguntasUsuario});
+}
 //Eliminar Pregunta
 const deleteQ = async (req, res) => {
     try {
         const { id } = req.params;
         const question = await questionModel.findOne({ where: { id } });
         
-        if (!usuario) {
+        if (!question) {
         return res 
         .status(status.NOT_FOUND)
         .json({ error: "La pregunta no existe"});
@@ -75,4 +93,11 @@ const deleteQ = async (req, res) => {
             return exception.message;
           }
 }
-module.exports = {createQ, readQ, updateQ, deleteQ}
+
+const getMyQuestions = async (req, res) => {
+    const {id} = req.user;
+    const userID = id;
+    const questions = await Question.findAll({ where: { userID } });
+    res.json(questions);
+  };
+module.exports = {createQ, readQ, updateQ, deleteQ,questionUser}

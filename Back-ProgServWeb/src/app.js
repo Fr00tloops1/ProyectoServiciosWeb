@@ -3,7 +3,13 @@ const sequelize = require('./config/database')
 const routes = require('./routes/index');
 const sanitizeInput = require('./middlewares/SanitizeInput');
 const helmet = require('helmet');
-
+require('dotenv').config()
+require('./models/user');
+require('./models/question');
+require('./models/answerq');
+require('./models/comments');
+const associateModels = require('./models/associatemodels');
+associateModels();
 const cors = require('cors');
 const morgan = require('morgan');
 
@@ -12,8 +18,6 @@ const logger = morgan('tiny');
 
 const swaggerUi = require('swagger-ui-express');
 const specs = require('../swagger/swagger.js');
-
-require('dotenv').config();
 
 // Crear la aplicación Express
 const app = express();
