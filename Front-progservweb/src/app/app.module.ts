@@ -16,7 +16,6 @@ import { CommentsComponent } from './components/comments/comments.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent,
     UserComponent,
     ModificarComponent,
     QuestionsComponent,
@@ -26,7 +25,8 @@ import { CommentsComponent } from './components/comments/comments.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    HomeComponent
   ],
   providers: [
     provideClientHydration(withEventReplay())

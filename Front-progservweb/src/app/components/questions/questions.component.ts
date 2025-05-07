@@ -10,5 +10,7 @@ import { QuestionsService } from '../../services/questions/questions.service';
 })
 export class QuestionsComponent {
   constructor (private ApiService: QuestionsService){ }
+
+  
   
 }

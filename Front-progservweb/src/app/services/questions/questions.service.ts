@@ -6,15 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class QuestionsService {
+  private API_URL = 'http://localhost:8001';
 
-  constructor(private http: HttpClient) { }
-    
-  private API_URL = 'http://localhost:8001'; 
+  constructor(private http: HttpClient) {}
 
-/*
-  crearPregunta(): Observable<any> {
-    return.this.http.post
-
+  getPreguntasPorUsuario(userId: string): Observable<any>  {
+    return this.http.get(`${this.API_URL}/MostrarPreguntas/${userId}`);
   }
-    */
+
+  postPregunta(pregunta: { userId: string, titulo: string }) {
+    return this.http.post(`${this.API_URL}/CrearPreguntas`, pregunta);
+  }
+  
 }

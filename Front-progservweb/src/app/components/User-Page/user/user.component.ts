@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { ApiUsuariosService } from '../../../services/user/api.usuarios.service';
 
 @Component({
   selector: 'app-user',
@@ -13,10 +14,12 @@ export class UserComponent implements OnInit {
     name: '',
     semester: ''
   };
+  userId!: number;
 
   constructor(
     private router: Router,
-    private location: Location
+    private location: Location,
+    private apiServices: ApiUsuariosService
   ) {}
 
   ngOnInit() {
@@ -33,6 +36,7 @@ export class UserComponent implements OnInit {
             name: parsedData.NameUser,
             semester: `${parsedData.semester}° semestre`
           };
+          this.userId = parsedData.id;
         } else {
           console.error('Datos de usuario incompletos:', parsedData);
           this.router.navigate(['/']);
@@ -56,8 +60,20 @@ export class UserComponent implements OnInit {
   }
 
   cerrarSesion() {
-    localStorage.removeItem('userData');
-    localStorage.removeItem('token');
-    this.router.navigate(['/']);
+    this.apiServices.LogOut(this.userId).subscribe({
+      next: (data) => {
+        console.log('Logout exitoso:', data);
+        localStorage.removeItem('userData');
+        localStorage.removeItem('token');
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Error en logout:', error);
+        // Aún así, limpiamos el localStorage y redirigimos
+        localStorage.removeItem('userData');
+        localStorage.removeItem('token');
+        this.router.navigate(['/']);
+      }
+    });
   }
 }
