@@ -30,7 +30,7 @@ export class LoginComponent{
             semester: data.user.semester,
             id: data.user.id
           }));
-          this.router.navigate(['/User']);
+          this.router.navigate(['/Home']);
         },
         error: (error) =>{
           console.log("Error en login:", error);
