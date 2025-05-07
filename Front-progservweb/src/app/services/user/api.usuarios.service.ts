@@ -15,5 +15,8 @@ export class ApiUsuariosService {
     const body = { NameUser, semester, password };
     return this.http.post(`${this.API_URL}/LogIn`, body);
   }
+  LogOut(id: number): Observable<any> {
+    return this.http.get(`${this.API_URL}/LogOut/${id}`);
+  }
 
 }

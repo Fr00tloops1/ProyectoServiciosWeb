@@ -5,7 +5,7 @@ require('dotenv').config();
 const process = require('process');
 const JWT = require('jsonwebtoken');
 
-const register = async (req, res) => {
+const register  =  async (req, res) => {
     try {
       const { NameUser, semester, password } = req.body;
       const salt = await bcryp.genSalt(10);
@@ -15,19 +15,13 @@ const register = async (req, res) => {
       if (!NameUser || !semester || !password) {
         return res
           .status(status.BAD_REQUEST)
-          .json({ error: "Todos los campos son obligatorios." });
       }
   
-      /* const payload = {
-        name,semester
-      }
-      const token = JWT.sign(payload,process.env.JWT_SECRET_KEY,{expiresIn:"12h"})
-       */
   
       UserModel.create({ NameUser, semester, password:hashpass });
   
       return res.json({
-        mensaje: "Registered user",
+        mensaje: "Usuario registrado",
         user: { NameUser, semester, password},
       });
     } catch (exception) {
@@ -146,12 +140,12 @@ const register = async (req, res) => {
         const usuario = await UserModel.findOne({ where: { id } });
         
         if (!usuario) {
-        return res.status(status.NOT_FOUND).json({ error: "Usuario no encontrado, debes crear una cuenta"});
+        return res.status(status.NOT_FOUND).json({ error: "Usuario no encontrado" });
         }
         
         res.json({
-          mensaje: "Hola te logeoaste out",
-          user: { usuario },
+          mensaje: "Saliste de la sesionS",
+          user:  usuario ,
         });
     } catch (exception) {
         return exception.message;

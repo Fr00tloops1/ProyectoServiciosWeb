@@ -11,8 +11,6 @@ import { ApiUsuariosService } from '../../services/user/api.usuarios.service';
 })
 export class LoginComponent{
 
-
-  usuarios: any[] = [];
   constructor(private router: Router, private apiServices: ApiUsuariosService){ }
 
 
@@ -26,9 +24,9 @@ export class LoginComponent{
         next: (data) => {
           console.log(data.user)
           console.log(data.token)
-          console.log(data.info)
-          this.router.navigate(['/Home'])
+          this.router.navigate(['/User'])
           localStorage.setItem('token', data.token);
+          localStorage.setItem('userId', data.user.id);
         },
 
         error: (error) =>{

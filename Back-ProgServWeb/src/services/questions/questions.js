@@ -87,7 +87,7 @@ const deleteQ = async (req, res) => {
         await question.destroy()
         return res
         .json({
-            mensaje: "Pregunta borrado con exito",
+            mensaje: "Pregunta borrada con exito",
           });} 
           catch (exception) {
             return exception.message;
