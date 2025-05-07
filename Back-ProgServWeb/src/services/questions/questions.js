@@ -1,23 +1,29 @@
 const questionModel = require('../../models/question');
 const {status} = require('http-status');
 
-//Crear Pregunta
 const createQ = async (req, res) => {
-    try{
-        const {content, subject, teacher} = req.body;
-        if (!content ||!teacher || !subject){
-            return res
-            .status(status.BAD_REQUEST)
-            .json({error: "Uno de los campos requeridos esta vacio"});
-        }
-        questionModel.create({content, subject, teacher});
-        return res
-        .json({mensaje: "La pregunta se ha creado con exito"});
+  try {
+    const { content, subject, teacher } = req.body;
+
+    if (!content || !teacher || !subject) {
+      return res
+        .status(status.BAD_REQUEST)
+        .json({ error: "Uno de los campos requeridos está vacío" });
     }
-    catch(exception){
-        return exception.message;
-    }
-}
+
+    const nuevaPregunta = await questionModel.create({ content, subject, teacher });
+
+    return res
+      .status(status.CREATED)
+      .json({ mensaje: "La pregunta se ha creado con éxito", pregunta: nuevaPregunta });
+
+  } catch (exception) {
+    return res
+      .status(status.INTERNAL_SERVER_ERROR)
+      .json({ error: exception.message });
+  }
+};
+
 //Mostrar Preguntas
 const readQ = async (req,res) => {
     try{

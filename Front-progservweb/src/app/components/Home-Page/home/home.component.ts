@@ -30,15 +30,18 @@ comentarios: { contenido: string; autor: string; preguntaId: number; }[] = [];
   }
 
   cargarDatos() {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
-      this.questionService.getPreguntasPorUsuario(userId).subscribe(data => {
-        this.preguntas = data.preguntas;
-        this.respuestas = data.respuestas;
-        this.comentarios = data.comentarios;
-      });
+    if (typeof window !== 'undefined') {
+      const userId = localStorage.getItem('userId');
+      if (userId) {
+        this.questionService.getPreguntasPorUsuario(userId).subscribe(data => {
+          this.preguntas = data.preguntas;
+          this.respuestas = data.respuestas;
+          this.comentarios = data.comentarios;
+        });
+      }
     }
   }
+  
 
   agregarPregunta() {
     if (this.nuevaPregunta.trim()) {
@@ -47,7 +50,12 @@ if (!userId) {
   console.error('No hay userId en localStorage');
   return;
 }
-      this.questionService.postPregunta({ userId, titulo: this.nuevaPregunta }).subscribe(() => {
+this.questionService.postPregunta({
+  content: this.nuevaPregunta,
+  subject: 'General', // Puedes cambiarlo según necesidad
+  teacher: userId
+}).subscribe(() => {
+
         this.nuevaPregunta = '';
         this.cargarDatos(); // Actualiza la lista
       });
