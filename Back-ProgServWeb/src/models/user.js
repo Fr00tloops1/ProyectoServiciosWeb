@@ -33,7 +33,8 @@ User.init(
     }
 );
 
-User.sync({alter: true});
+
+
 
 
 module.exports = User;

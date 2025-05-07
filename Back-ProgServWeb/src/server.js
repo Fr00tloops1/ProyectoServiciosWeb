@@ -4,7 +4,12 @@ const routes = require('./routes/index');
 const middlewares_Prehechos = require('./middlewares/middlewares')
 const app = express()
 require('dotenv').config()
-
+require('./models/user');
+require('./models/question');
+require('./models/answerq');
+require('./models/comments');
+const associateModels = require('./models/associatemodels');
+associateModels();
 //Variable que contiene el puerto del servidor:
 const PORT = process.env.PORT || 8001;
 

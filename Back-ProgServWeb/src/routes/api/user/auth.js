@@ -3,6 +3,7 @@ const router = express.Router();
 const authService = require('../../../services/user/auth');
 require('dotenv').config();
 const { status } = require("http-status");
+const verifyToken = require('../../../middlewares/auth');
 
 router.post("/register", async(req, res) =>{
     try {
@@ -13,7 +14,7 @@ router.post("/register", async(req, res) =>{
       }
 });
 
-router.put("/usuarios/:id", async (req, res) => {
+router.put("/usuarios/:id", verifyToken, async (req, res) => {
   try {
       const UserUpdated = await authService.UpdateUser(req, res);
       res
@@ -32,7 +33,7 @@ router.get("/obtener", async(req, res) =>{
       }
 });
 
-router.delete("/borrar/:id", async(req, res) =>{
+router.delete("/borrar/:id", verifyToken, async(req, res) =>{
     try {
         const user = await authService.DeleteUser(req, res);
         return res.status(status.NO_CONTENT).json(user);

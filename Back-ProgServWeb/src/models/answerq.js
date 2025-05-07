@@ -20,8 +20,16 @@ answerq.init(
         },
         valoration: {
             type: DataTypes.TINYINT,
-            allowNull: false
-        }
+            allowNull: true
+        },
+        userID: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'User',
+                key: 'id'
+            }
+          }
     },
     {
     sequelize,
@@ -29,6 +37,9 @@ answerq.init(
     tableName: 'answersq',
     timestamps: true
     }
+     
 );
 
-module.exports = answerq;
+
+  module.exports = answerq;
+

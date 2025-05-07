@@ -26,6 +26,7 @@ export class LoginComponent{
         next: (data) => {
           console.log(data.user)
           console.log(data.token)
+          console.log(data.info)
           this.router.navigate(['/Home'])
           localStorage.setItem('token', data.token);
         },

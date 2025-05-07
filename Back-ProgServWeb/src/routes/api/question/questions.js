@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const questionService = require('../../../services/questions/auth');
 const { status } = require('http-status');
-
-router.post("/CrearPreguntas", async(req,res) =>{
+const verifyToken = require('../../../middlewares/auth');
+router.post("/CrearPreguntas",verifyToken, async(req,res) =>{
     try{
         const question = await questionService.createQ(req,res);
         return res.status(201).json(question);
