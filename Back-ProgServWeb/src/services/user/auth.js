@@ -138,12 +138,12 @@ const register  =  async (req, res) => {
         const usuario = await UserModel.findOne({ where: { id } });
         
         if (!usuario) {
-        return res.status(status.NOT_FOUND).json({ error: "Usuario no encontrado, debes crear una cuenta"});
+        return res.status(status.NOT_FOUND).json({ error: "Usuario no encontrado" });
         }
         
         res.json({
           mensaje: "Saliste de la sesionS",
-          user: { usuario },
+          user:  usuario ,
         });
     } catch (exception) {
         return exception.message;
