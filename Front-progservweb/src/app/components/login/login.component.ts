@@ -22,15 +22,20 @@ export class LoginComponent{
     if(form.valid){
       this.apiServices.LogIn(this.NameField,this.SemesterField,this.PasswordField).subscribe({
         next: (data) => {
-          console.log(data.user)
-          console.log(data.token)
-          this.router.navigate(['/User'])
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('userId', data.user.id);
+          console.log('Respuesta del login:', data);
+          if (data && data.user && data.user.id) {
+            const tokenString = typeof data.token === 'object' ? JSON.stringify(data.token) : data.token;
+            localStorage.setItem('token', tokenString);
+            localStorage.setItem('userId', data.user.id);
+            console.log('ID del usuario guardado:', data.user.id);
+            console.log('Token guardado:', tokenString);
+            this.router.navigate(['/User']);
+          } else {
+            console.error('La respuesta del servidor no tiene la estructura esperada:', data);
+          }
         },
-
         error: (error) =>{
-          console.log("Errorsote", error);
+          console.error("Error en el login:", error);
         }
       })
     }
