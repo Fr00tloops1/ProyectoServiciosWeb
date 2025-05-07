@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
       const userData = localStorage.getItem('userData');
       if (userData) {
         const parsedData = JSON.parse(userData);
-        if (parsedData.id) {
+        if (parsedData) {
           this.questionService.getPreguntasPorUsuario(parsedData.id.toString()).subscribe(data => {
             this.preguntas = data.preguntas;
             this.respuestas = data.respuestas;
@@ -46,26 +46,41 @@ export class HomeComponent implements OnInit {
       }
     }
   }
+  
 
   agregarPregunta() {
+    console.log("Contenido de nuevaPregunta:", this.nuevaPregunta);
+  
     if (this.nuevaPregunta.trim()) {
+      console.log("Hola2");
       if (typeof window !== 'undefined' && localStorage) {
         const userData = localStorage.getItem('userData');
+       
         if (userData) {
+          
           const parsedData = JSON.parse(userData);
-          if (parsedData.id) {
-            this.questionService.postPregunta({ 
-              userId: parsedData.id.toString(), 
-              titulo: this.nuevaPregunta 
-            }).subscribe(() => {
-              this.nuevaPregunta = '';
-              this.cargarDatos();
-            });
+          console.log(parsedData)
+          if (parsedData) {
+            
+            this.questionService
+              .postPregunta(parsedData, this.nuevaPregunta, 'Matemáticas', 'Profesor Charles Chaplin')
+              .subscribe({
+                next: (res) => {
+                  console.log("Pregunta enviada con éxito:", res);
+                  
+                  this.nuevaPregunta = '';
+                  this.cargarDatos();
+                },
+                error: (err) => {
+                  console.error("Error al enviar la pregunta:", err);
+                }
+              });
           }
         }
       }
     }
   }
+  
 
   irAPerfil() {
     this.router.navigate(['/User']);

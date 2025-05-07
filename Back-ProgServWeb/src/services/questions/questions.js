@@ -1,4 +1,5 @@
 const questionModel = require('../../models/question');
+const UserModel = require('../../models/user');
 const {status} = require('http-status');
 
 //Crear Pregunta

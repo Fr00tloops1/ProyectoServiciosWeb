@@ -13,6 +13,7 @@ export class LoginComponent{
 
   constructor(private router: Router, private apiServices: ApiUsuariosService){ }
 
+
   NameField: string = ""
   SemesterField!: number  
   PasswordField: string = ""
@@ -32,10 +33,12 @@ export class LoginComponent{
           }));
           this.router.navigate(['/Home']);
         },
+
         error: (error) =>{
           console.log("Error en login:", error);
         }
       })
     }
   }
+
 }
