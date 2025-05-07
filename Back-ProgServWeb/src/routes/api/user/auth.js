@@ -3,7 +3,7 @@ const router = express.Router();
 const authController = require('../../../controllers/userControllers');
 const ValidateFields = require('../../../middlewares/validateFields');
 const validateFields = require('../../../middlewares/validateFields');
-
+const verifyToken = require('../../../middlewares/auth');
 /**
  * @swagger
  * /register:

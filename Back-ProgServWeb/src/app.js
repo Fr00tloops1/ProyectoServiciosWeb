@@ -2,6 +2,13 @@ const express = require('express');
 const sequelize = require('./config/database')
 const routes = require('./routes/index');
 const sanitizeInput = require('./middlewares/SanitizeInput');
+require('dotenv').config()
+require('./models/user');
+require('./models/question');
+require('./models/answerq');
+require('./models/comments');
+const associateModels = require('./models/associatemodels');
+associateModels();
 const cors = require('cors');
 const morgan = require('morgan');
 

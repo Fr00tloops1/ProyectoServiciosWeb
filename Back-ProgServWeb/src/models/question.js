@@ -12,11 +12,11 @@ Question.init(
             allowNull: false,
             autoIncrement: true
         },
-        userId: {
+        userID: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: userModel,
+                model: 'User',
                 key: 'id'
             }
         },
@@ -40,5 +40,6 @@ Question.init(
         sequelize,
     }
 );
+
 
 module.exports = Question;

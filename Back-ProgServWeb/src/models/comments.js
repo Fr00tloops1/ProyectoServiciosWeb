@@ -16,27 +16,29 @@ Comments.init(
                 model: 'answersq',
                 key: 'id'
             }
-        },
-        myAnswersID: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'myanswers',
-                key: 'id'
-            }
+            
         },
         comment: {
             type: DataTypes.STRING(140),
             allowNull: false,
+        },
+        userID: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'User',
+                key: 'id'
+            }
         }
     },
     {
         sequelize,
-        modelName: 'comments',
+        modelName: 'Comments',
         tableName: 'comments',
         timestamps: true
 
     }
 );
+
 
 module.exports = Comments;

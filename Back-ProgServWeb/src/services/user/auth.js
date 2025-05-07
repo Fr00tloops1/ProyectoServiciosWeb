@@ -107,14 +107,15 @@ const register  =  async (req, res) => {
     if (!passwordValida) {
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }
-    const payload = {
-      NameUser,semester
-    }
+    const payload = {id: usuario.id,
+      NameUser: usuario.NameUser
+      
+    };
     const token = JWT.sign(payload,process.env.JWT_SECRET_KEY,{expiresIn:"12h"})
-    const info = token.split('.')[1]
-    const decoded = JWT.decode(info);
+    
+
       res
-      .status(status.OK) 
+      .status(status.OK)
       .json({
         user: {
           id: usuario.id,
@@ -123,7 +124,8 @@ const register  =  async (req, res) => {
         },
         token:{
           token: token
-        }
+        },
+        
         
       });
       
@@ -138,12 +140,12 @@ const register  =  async (req, res) => {
         const usuario = await UserModel.findOne({ where: { id } });
         
         if (!usuario) {
-        return res.status(status.NOT_FOUND).json({ error: "Usuario no encontrado, debes crear una cuenta"});
+        return res.status(status.NOT_FOUND).json({ error: "Usuario no encontrado" });
         }
         
         res.json({
           mensaje: "Saliste de la sesionS",
-          user: { usuario },
+          user:  usuario ,
         });
     } catch (exception) {
         return exception.message;
