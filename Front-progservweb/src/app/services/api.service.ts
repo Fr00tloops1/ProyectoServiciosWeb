@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -30,12 +30,6 @@ export class ApiService {
   }
   LogOut(id: string): Observable<any> {
     return this.http.delete(`${this.API_URL}/LogOut/${id}`);
-  }
-
-  obtenerUsuario(id: number): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(`${this.API_URL}/obtener`, { headers });
   }
 
 }
