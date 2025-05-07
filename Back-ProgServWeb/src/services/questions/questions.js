@@ -1,28 +1,42 @@
 const questionModel = require('../../models/question');
+const UserModel = require('../../models/user');
 const {status} = require('http-status');
 
-const createQ = async (req, res) => {
-  try {
-    const { content, subject, teacher } = req.body;
+  const createQ = async (req, res) => {
+    try {
 
-    if (!content || !teacher || !subject) {
+      const { id } = req.params;
+      const { content, subject, teacher } = req.body;
+
+      const user = await UserModel.findOne({ where: { id } });
+      console.log(user);
+
+      if (!user) {
+        return res.status(status.NOT_FOUND).json({ error: "Usuario no encontrado" });
+        }
+        if (!id) {
+          return res.status(status.BAD_REQUEST).json({ error: "ID de usuario faltante" });
+        }
+        
+
+      if (!content || !teacher || !subject) {
+        return res
+          .status(status.BAD_REQUEST)
+          .json({ error: "Uno de los campos requeridos está vacío" });
+      }
+
+      const nuevaPregunta = await questionModel.create({ userId: id,content, subject, teacher });
+
       return res
-        .status(status.BAD_REQUEST)
-        .json({ error: "Uno de los campos requeridos está vacío" });
+        .status(status.CREATED)
+        .json({ mensaje: "La pregunta se ha creado con éxito", pregunta: nuevaPregunta });
+
+    } catch (exception) {
+      return res
+        .status(status.INTERNAL_SERVER_ERROR)
+        .json({ error: exception.message });
     }
-
-    const nuevaPregunta = await questionModel.create({ content, subject, teacher });
-
-    return res
-      .status(status.CREATED)
-      .json({ mensaje: "La pregunta se ha creado con éxito", pregunta: nuevaPregunta });
-
-  } catch (exception) {
-    return res
-      .status(status.INTERNAL_SERVER_ERROR)
-      .json({ error: exception.message });
-  }
-};
+  };
 
 //Mostrar Preguntas
 const readQ = async (req,res) => {

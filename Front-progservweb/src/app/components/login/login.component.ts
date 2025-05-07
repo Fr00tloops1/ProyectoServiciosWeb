@@ -13,7 +13,6 @@ export class LoginComponent{
 
   constructor(private router: Router, private apiServices: ApiUsuariosService){ }
 
-
   NameField: string = ""
   SemesterField!: number  
   PasswordField: string = ""
@@ -22,18 +21,17 @@ export class LoginComponent{
     if(form.valid){
       this.apiServices.LogIn(this.NameField,this.SemesterField,this.PasswordField).subscribe({
         next: (data) => {
-          console.log(data.user)
-          console.log(data.token)
-          this.router.navigate(['/Home'])
+          console.log('Respuesta del servidor:', data);
+          // Guardar token
           localStorage.setItem('token', data.token);
-          localStorage.setItem('userId', data.user.id);
+          // Guardar datos completos del usuario
+          localStorage.setItem('userData', data.user.id);
+          this.router.navigate(['/Home']);
         },
-
         error: (error) =>{
-          console.log("Errorsote", error);
+          console.log("Error en login:", error);
         }
       })
     }
   }
-
 }

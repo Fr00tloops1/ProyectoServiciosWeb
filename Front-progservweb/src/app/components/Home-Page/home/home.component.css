@@ -1,46 +1,93 @@
+.home-gradient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    background: linear-gradient(135deg, #19f7e0 0%, #1de9b6 100%);
+    overflow: auto;
+}
+
 .forum-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    padding: 2rem;
-    background: linear-gradient(135deg, #27e8cb, #27d4cb);
+    padding: 3.5rem 2.5rem 2rem 2rem;
+    background: linear-gradient(135deg, #06232e 0%, #1de9b6 100%);
     min-height: 100vh;
-  }
-  
-  .card, .form-card {
+    position: relative;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #19f7e0 0%, #1de9b6 100%);
+}
+
+.profile-button {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    background-color: #1de9b6;
+    color: #081f2d;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+    z-index: 1000;
+}
+
+.profile-button:hover {
+    background-color: #1ad9a6;
+}
+
+.profile-button i {
+    font-size: 16px;
+}
+
+.card, .form-card {
     background-color: #081f2d;
     color: #e0f7fa;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     padding: 1.5rem;
     transition: 0.3s ease;
-  }
-  
-  .card:hover, .form-card:hover {
+}
+
+.card:hover, .form-card:hover {
     transform: translateY(-5px);
-  }
-  
-  .card h2, .form-card h2 {
+}
+
+.card h2, .form-card h2 {
     color: #1de9b6;
     margin-bottom: 1rem;
-  }
-  
-  form {
+}
+
+form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
-  
-  input[type="text"] {
+}
+
+input[type="text"] {
     padding: 0.8rem;
     border-radius: 8px;
     border: none;
     font-size: 1rem;
     background-color: #0f2f44;
     color: #fff;
-  }
-  
-  button {
+}
+
+button {
     padding: 0.8rem;
     background-color: #1de9b6;
     color: #081f2d;
@@ -49,9 +96,91 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #1ad9a6;
-  }
+}
+
+.card h4 {
+    color: #1de9b6;
+    margin: 15px 0 5px;
+}
+
+.card p, .form-card p {
+    margin: 5px 0;
+    color: #e0f7fa;
+}
+
+.card strong {
+    color: #1de9b6;
+}
+
+.header-nav {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #081f2d;
+    color: #e0f7fa;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.header-nav h1 {
+    margin: 0;
+    color: #1de9b6;
+    font-size: 24px;
+}
+
+.form-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.form-card h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.form-card input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-card button {
+    background-color: #3cc9b9;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-card button:hover {
+    background-color: #2ba89a;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #3cc9b9;
+    padding-bottom: 10px;
+}
   

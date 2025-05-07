@@ -41,7 +41,7 @@ const { status } = require('http-status');
  *       500:
  *         description: Error interno del servidor.
  */
-router.post("/CrearPreguntas", async(req,res) =>{
+router.post("/CrearPreguntas/:id", async(req,res) =>{
     try{
         const question = await questionService.createQ(req,res);
         return res.status(201).json(question);

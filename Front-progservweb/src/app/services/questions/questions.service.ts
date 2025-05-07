@@ -14,8 +14,9 @@ export class QuestionsService {
     return this.http.get(`${this.API_URL}/MostrarPreguntas/${userId}`);
   }
 
-  postPregunta(pregunta: { content: string, subject: string, teacher: string }) {
-    return this.http.post(`${this.API_URL}/CrearPreguntas`, pregunta);
+  postPregunta(userId: number, content: string, subject: string, teacher: string ) {
+    const pregunta = {content, subject, teacher};
+    return this.http.post(`${this.API_URL}/CrearPreguntas/${userId}`, pregunta);
   }
   
   
