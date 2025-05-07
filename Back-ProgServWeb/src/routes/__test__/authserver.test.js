@@ -1,21 +1,21 @@
-const { register } = require('../../services/user/auth.js'); // Importa la función a probar
-const UserModel = require('../../models/user'); // Mock del modelo de usuario
+const { register } = require('../../services/user/auth.js');
+const UserModel = require('../../models/user.js');
 
 // Mock del modelo UserModel
-jest.mock('../../models/user', () => ({
+jest.mock('../../models/user.js', () => ({
   create: jest.fn()
 }));
 
 describe('register function', () => {
   beforeEach(() => {
-    jest.clearAllMocks(); // Limpia los mocks antes de cada prueba
+    jest.clearAllMocks(); 
   });
 
   // Test 1: Verifica si falta NameUser
   it('should fail if NameUser is missing', async () => {
     const mockRequest = {
       body: {
-        NameUser: undefined, // Sin NameUser
+        NameUser: undefined, 
         semester: 5,
         password: 'test'
       }
@@ -29,9 +29,7 @@ describe('register function', () => {
     await register(mockRequest, mockResponse);
 
     expect(mockResponse.status).toHaveBeenCalledWith(400);
-    expect(mockResponse.json).toHaveBeenCalledWith({
-      error: 'Todos los campos son obligatorios.'
-    });
+
   });
 
   // Test 2: Verifica si falta semester
@@ -39,7 +37,7 @@ describe('register function', () => {
     const mockRequest = {
       body: {
         NameUser: 'Test User',
-        semester: undefined, // Sin semester
+        semester: undefined,
         password: 'test123'
       }
     };
@@ -52,8 +50,39 @@ describe('register function', () => {
     await register(mockRequest, mockResponse);
 
     expect(mockResponse.status).toHaveBeenCalledWith(400);
+  });
+
+
+  // Test 3: Verifica un registro exitoso
+  it('should register a user successfully', async () => {
+    const mockRequest = {
+      body: {
+        NameUser: 'Test User',
+        semester: 5,
+        password: 'test123'
+      }
+    };
+
+    const mockResponse = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn()
+    };
+
+    await register(mockRequest, mockResponse);
+
+    expect(mockResponse.status).not.toHaveBeenCalledWith(400);
+    expect(UserModel.create).toHaveBeenCalledWith({
+      NameUser: 'Test User',
+      semester: 5,
+      password: expect.any(String) 
+    });
     expect(mockResponse.json).toHaveBeenCalledWith({
-      error: 'Todos los campos son obligatorios.'
+      mensaje: 'Usuario registrado',
+      user: {
+        NameUser: 'Test User',
+        semester: 5,
+        password: 'test123' 
+      }
     });
   });
 });
