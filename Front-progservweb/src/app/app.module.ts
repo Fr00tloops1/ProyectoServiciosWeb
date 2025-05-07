@@ -15,7 +15,6 @@ import { QuestionsComponent } from './components/questions/questions.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent,
     UserComponent,
     ModificarComponent,
     QuestionsComponent
@@ -24,7 +23,8 @@ import { QuestionsComponent } from './components/questions/questions.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    HomeComponent
   ],
   providers: [
     provideClientHydration(withEventReplay())

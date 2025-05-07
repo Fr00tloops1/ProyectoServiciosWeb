@@ -1,2 +1,37 @@
-<p>Bienvenido!</p>
-<button> <a routerLink="/Login" routerLinkActive="active"> regresar </a></button>
+<div class="forum-container">
+
+    <!-- Sección para ingresar nueva pregunta -->
+    <div class="form-card">
+      <h2>Haz una pregunta</h2>
+      <form (submit)="agregarPregunta()">
+        <input type="text" [(ngModel)]="nuevaPregunta" name="pregunta" placeholder="Escribe tu pregunta aquí..." required />
+        <button type="submit">Ingresar pregunta</button>
+      </form>
+    </div>
+  
+    <!-- Mis preguntas -->
+    <div class="card">
+      <h2>Mis Preguntas</h2>
+      <div *ngFor="let pregunta of preguntas">
+        <h4>{{ pregunta.titulo }}</h4>
+        <p>{{ pregunta.descripcion }}</p>
+      </div>
+    </div>
+  
+    <!-- Respuestas -->
+    <div class="card">
+      <h2>Respuestas</h2>
+      <div *ngFor="let respuesta of respuestas">
+        <p><strong>{{ respuesta.autor }}:</strong> {{ respuesta.contenido }}</p>
+      </div>
+    </div>
+  
+    <!-- Comentarios -->
+    <div class="card">
+      <h2>Comentarios</h2>
+      <div *ngFor="let comentario of comentarios">
+        <p><strong>{{ comentario.autor }}:</strong> {{ comentario.contenido }}</p>
+      </div>
+    </div>
+  </div>
+  

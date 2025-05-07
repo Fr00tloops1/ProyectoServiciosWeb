@@ -28,8 +28,5 @@ export class ApiService {
   eliminarUsuario(id: string): Observable<any> {
     return this.http.delete(`${this.API_URL}/borrar/${id}`);
   }
-  LogOut(id: string): Observable<any> {
-    return this.http.delete(`${this.API_URL}/LogOut/${id}`);
-  }
 
 }

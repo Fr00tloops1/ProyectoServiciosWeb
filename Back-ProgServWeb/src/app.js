@@ -2,6 +2,7 @@ const express = require('express');
 const sequelize = require('./config/database')
 const routes = require('./routes/index');
 const sanitizeInput = require('./middlewares/SanitizeInput');
+const helmet = require('helmet');
 
 const cors = require('cors');
 const morgan = require('morgan');
@@ -21,6 +22,13 @@ app.use(logger);
 app.use(cors({origin: 'http://localhost:4200'}));
 app.use(express.json());
 app.use(sanitizeInput);
+app.use(helmet());
+const rateLimit = require('express-rate-limit');
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 100
+});
+app.use(limiter);
 // Rutas no protegidas
 app.use(routes.unprotectedRoutes);
 
