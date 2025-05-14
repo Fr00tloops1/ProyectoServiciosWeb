@@ -1,0 +1,58 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-tr from-[#2cc7c1] to-[#3cc9b9] relative overflow-hidden">
+    <!-- White line shapes -->
+    <svg aria-hidden="true" class="absolute inset-0 w-full h-full" fill="none" preserveaspectratio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-100 100L100 0L0 200Z" stroke="#D9F0F0" stroke-opacity="0.3" stroke-width="1.5" />
+      <path d="M200 300L400 200L300 400Z" stroke="#D9F0F0" stroke-opacity="0.3" stroke-width="1.5" />
+      <path d="M300 100C400 200 600 0 700 100" stroke="#D9F0F0" stroke-opacity="0.3" stroke-width="1.5" />
+      <path d="M100 400C200 500 400 300 500 400" stroke="#D9F0F0" stroke-opacity="0.3" stroke-width="1.5" />
+    </svg>
+  
+    <div class="relative bg-[#0f1e2e] rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] w-[360px] pt-12 pb-10 px-8 flex flex-col items-center">
+      <div class="absolute top-2 left-1/2 -translate-x-1/2 text-[#4a5a6a] text-[10px] tracking-widest font-semibold select-none">
+        ACTUALIZAR
+      </div>
+      <div class="absolute top-4 right-4 w-6 h-2 rounded-full bg-[#4ad3c9]"></div>
+      <div class="flex items-center space-x-2 mb-6">
+        <img alt="Freehands logo" class="w-6 h-6" src="https://storage.googleapis.com/a1aa/image/4cd30a2c-57dd-4359-3efd-a45dfde96600.jpg" />
+        <span class="text-[#4ad3c9] font-semibold text-xl select-none">freehands</span>
+      </div>
+      <h1 class="text-white text-lg font-semibold mb-2 select-none">Welcome!</h1>
+      <p class="text-[#7a8a9a] text-center text-sm mb-6 select-none leading-relaxed max-w-[280px]">
+        Enter your name, semester and password to Update.
+      </p>
+  
+      <!-- Angular Form -->
+      <form class="w-full space-y-3" #myform="ngForm" (ngSubmit)="SendUpdate(myform)">
+        <div class="relative">
+          <span class="absolute inset-y-0 left-3 flex items-center text-[#4a5a6a] text-sm">
+            <i class="fas fa-user"></i>
+          </span>
+          <input type="text" name="name" [(ngModel)]="NameField" #myinput="ngModel" required
+            class="w-full bg-transparent border border-[#2a3a4a] rounded-md py-3 pl-10 pr-3 text-white placeholder-[#4a5a6a] text-sm focus:outline-none focus:ring-1 focus:ring-[#4ad3c9] focus:border-[#4ad3c9]"
+            placeholder="Name" />
+        </div>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-3 flex items-center text-[#4a5a6a] text-sm">
+            <i class="fas fa-graduation-cap"></i>
+          </span>
+          <input type="number" name="semester" [(ngModel)]="SemesterField" #myinput="ngModel" required
+            class="w-full bg-transparent border border-[#2a3a4a] rounded-md py-3 pl-10 pr-3 text-white placeholder-[#4a5a6a] text-sm focus:outline-none focus:ring-1 focus:ring-[#4ad3c9] focus:border-[#4ad3c9]"
+            placeholder="Semester" />
+        </div>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-3 flex items-center text-[#4a5a6a] text-sm">
+            <i class="fas fa-lock"></i>
+          </span>
+          <input type="password" name="password" [(ngModel)]="PasswordField" #myinput="ngModel" required
+            class="w-full bg-transparent border border-[#2a3a4a] rounded-md py-3 pl-10 pr-3 text-white placeholder-[#4a5a6a] text-sm focus:outline-none focus:ring-1 focus:ring-[#4ad3c9] focus:border-[#4ad3c9]"
+            placeholder="Password" />
+        </div>
+        <button type="submit"
+          class="w-full bg-gradient-to-r from-[#3cc9b9] to-[#2cc7c1] rounded-md py-3 text-white font-semibold text-sm flex items-center justify-center space-x-2 hover:brightness-110 transition">
+          <i class="fas fa-check"></i>
+          <span>Login</span>
+        </button>
+      </form>
+    </div>
+  </div>
+  
